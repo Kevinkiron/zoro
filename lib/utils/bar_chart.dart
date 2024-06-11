@@ -45,6 +45,11 @@ class BarChartView extends StatelessWidget {
                     width: 18,
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(20),
+                    backDrawRodData: BackgroundBarChartRodData(
+                      color: Colors.grey.withOpacity(0.5),
+                      show: true,
+                      fromY: 30,
+                    ),
                   ),
                 ],
               ),

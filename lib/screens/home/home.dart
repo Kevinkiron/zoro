@@ -1,5 +1,6 @@
 import 'package:expense_tracker/screens/home/bloc/home_bloc.dart';
 import 'package:expense_tracker/utils/bar_chart.dart';
+import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -45,7 +46,7 @@ class HomeView extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(
-              height: 70,
+              height: 60,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,69 +68,16 @@ class HomeView extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            Container(
-              height: 150,
-              width: 400,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 30,
-              ),
-              decoration: BoxDecoration(
-                  image: const DecorationImage(
-                    image: AssetImage(
-                      AppImages.balanceCard,
-                    ),
-                    alignment: Alignment.bottomCenter,
-                    fit: BoxFit.contain,
-                  ),
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(30)),
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Available Balance",
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            color: Colors.white,
-                          )
-                        ],
-                      ),
-                      Text(
-                        " 2,800",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 36,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Text(
-                      "tap for detail",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  )
-                ],
+            Card(
+              elevation: 10,
+              color: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              child: FlipCard(
+                direction: FlipDirection.HORIZONTAL,
+                speed: 600,
+                front: _frontSideTopCard(),
+                back: _backSideTopCard(),
               ),
             ),
             const SizedBox(
@@ -245,6 +193,143 @@ class HomeView extends StatelessWidget {
             const BarChartView(),
           ],
         ),
+      ),
+    );
+  }
+
+  Container _backSideTopCard() {
+    return Container(
+      height: 150,
+      // width: 400,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+      ),
+      decoration: BoxDecoration(
+        image: const DecorationImage(
+          image: AssetImage(
+            AppImages.balanceCard,
+          ),
+          alignment: Alignment.bottomCenter,
+          fit: BoxFit.contain,
+        ),
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            height: 10,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Available Balance",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: Colors.white,
+                  )
+                ],
+              ),
+              Text(
+                " 2,800",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Text(
+              "tap for detail",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 4,
+          )
+        ],
+      ),
+    );
+  }
+
+  Container _frontSideTopCard() {
+    return Container(
+      height: 150,
+      // width: 400,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+      ),
+      decoration: BoxDecoration(
+          image: const DecorationImage(
+            image: AssetImage(
+              AppImages.balanceCard,
+            ),
+            alignment: Alignment.bottomCenter,
+            fit: BoxFit.contain,
+          ),
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(20)),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            height: 10,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Available Balance",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: Colors.white,
+                  )
+                ],
+              ),
+              Text(
+                " 2,800",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Text(
+              "tap for detail",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 4,
+          )
+        ],
       ),
     );
   }

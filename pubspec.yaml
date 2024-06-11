@@ -17,6 +17,7 @@ dependencies:
   go_router: ^14.1.4
   gap: ^3.0.1
   flashy_tab_bar2: ^0.0.10
+  flip_card: ^0.7.0
 
 dev_dependencies:
   flutter_test:

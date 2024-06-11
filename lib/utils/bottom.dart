@@ -15,6 +15,7 @@ class BottomNavBar extends StatelessWidget {
       builder: (context, state) {
         return FlashyTabBar(
           selectedIndex: state.tabIndex,
+          iconSize: 30,
           showElevation: true,
           onItemSelected: (index) {
             context.read<HomeBloc>().add(NavigateIndex(index));
