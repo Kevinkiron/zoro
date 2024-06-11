@@ -1,3 +1,4 @@
+import 'package:expense_tracker/utils/app_font_styles.dart';
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,20 +24,19 @@ class BottomNavBar extends StatelessWidget {
           items: [
             FlashyTabBarItem(
               icon: const Icon(Icons.home_rounded),
-              title: const Text('Home'),
+              title: AppFont().S(text: 'Home'),
             ),
             FlashyTabBarItem(
               icon: const Icon(Icons.bar_chart_rounded),
-              title: const Text('Statistics'),
+              title: AppFont().S(text: 'Statistics'),
             ),
             FlashyTabBarItem(
               icon: const Icon(Icons.account_balance_wallet_rounded),
-              title: const Text('Transactions'),
+              title: AppFont().S(text: 'Transactions'),
             ),
             FlashyTabBarItem(
-              icon: const Icon(Icons.settings),
-              title: const Text('Settings'),
-            ),
+                icon: const Icon(Icons.settings),
+                title: AppFont().S(text: 'Budget')),
           ],
         );
       },

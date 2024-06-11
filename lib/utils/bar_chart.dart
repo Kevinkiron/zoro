@@ -14,6 +14,13 @@ class BarChartView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+                spreadRadius: 0,
+                offset: const Offset(0.7, 2),
+                blurRadius: 5,
+                color: Colors.grey.withOpacity(0.5))
+          ],
           color: Colors.white,
         ),
         margin: const EdgeInsets.symmetric(vertical: 20),

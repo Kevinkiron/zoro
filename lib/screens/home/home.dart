@@ -1,5 +1,6 @@
 import 'package:expense_tracker/screens/home/bloc/home_bloc.dart';
-import 'package:expense_tracker/utils/bar_chart.dart';
+import 'package:expense_tracker/utils/app_font_styles.dart';
+import 'package:expense_tracker/utils/string_const.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +22,7 @@ class Home extends StatelessWidget {
           bottomNavigationBar: const BottomNavBar(),
           //  backgroundColor: const Color(0xFFf6f6f6),
           body: state.pages[state.tabIndex],
-          floatingActionButton: FloatButton(),
+          floatingActionButton: const FloatButton(),
         );
       },
     );
@@ -40,10 +41,11 @@ class HomeView extends StatelessWidget {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: 20,
+          horizontal: 12,
           vertical: 10,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
               height: 60,
@@ -66,131 +68,179 @@ class HomeView extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Card(
-              elevation: 10,
+              elevation: 6,
               color: Colors.transparent,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
+                  borderRadius: BorderRadius.circular(15)),
               child: FlipCard(
                 direction: FlipDirection.HORIZONTAL,
-                speed: 600,
+                speed: 1000,
                 front: _frontSideTopCard(),
                 back: _backSideTopCard(),
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 10),
-                    decoration: BoxDecoration(
-                        color: const Color(0xFFd9e7e5),
-                        borderRadius: BorderRadius.circular(30)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CircleAvatar(
-                          radius: 20,
-                          backgroundColor: const Color(0xFF42887c),
-                          child: Image.asset(
-                            AppImages.bankIcon,
-                            height: 80,
-                            width: 30,
-                          ),
-                        ),
-                        const Text(
-                          '1,800.00',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                        const Text("Income"),
-                      ],
-                    ),
-                  ),
+                  child: _incomeCard(),
                 ),
                 const Gap(10),
                 Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 10),
-                    decoration: BoxDecoration(
-                        color: const Color(0xFFe6e2e6),
-                        borderRadius: BorderRadius.circular(30)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CircleAvatar(
-                          radius: 20,
-                          backgroundColor: const Color(0xFF836f81),
-                          child: Image.asset(
-                            AppImages.walletIcon,
-                            height: 80,
-                            width: 30,
-                          ),
-                        ),
-                        const Text(
-                          '1,800.00',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                        const Text("Expense"),
-                      ],
-                    ),
-                  ),
+                  child: _expenseCard(),
                 ),
               ],
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
-            Container(
-              padding: const EdgeInsets.all(20),
-              height: 100,
-              width: 400,
-              decoration: BoxDecoration(
-                  color: const Color(0xFF1d2a30),
-                  borderRadius: BorderRadius.circular(20)),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Budget For Today',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        'Cash Available',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    '2,478',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
+            _budgetForDayCard(),
+            const Gap(20),
+            AppFont().S(
+              fontSize: 18,
+              text: 'Todays transactions',
+              fontWeight: FontWeight.bold,
+            ),
+            const Gap(10),
+            todaysTransact(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  ListView todaysTransact() {
+    return ListView.builder(
+        padding: EdgeInsets.zero,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: 6,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return Card(
+            elevation: 6,
+            color: Colors.white,
+            child: ListTile(
+              trailing: const Text('data'),
+              title: const Text('Shopping'),
+              subtitle: const Text('Description'),
+              leading: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: const Icon(Icons.ac_unit_sharp)),
+            ),
+          );
+        });
+  }
+
+  Container _budgetForDayCard() {
+    return Container(
+      padding: const EdgeInsets.all(18),
+      height: 90,
+      width: 400,
+      decoration: BoxDecoration(
+        color: const Color(0xFF1d2a30),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Budget For Today',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(
+                'Cash Available',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
+          Text(
+            '2,478',
+            style: TextStyle(
+                color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Card _expenseCard() {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      elevation: 6,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        decoration: BoxDecoration(
+            color: const Color(0xFFEBD4EB),
+            borderRadius: BorderRadius.circular(15)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatar(
+              radius: 20,
+              backgroundColor: const Color(0xFF836f81),
+              child: Image.asset(
+                AppImages.walletIcon,
+                height: 80,
+                width: 30,
               ),
             ),
-            const BarChartView(),
+            const Text(
+              '1,800.00',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const Text("Expense"),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Card _incomeCard() {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      elevation: 6,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        decoration: BoxDecoration(
+            color: const Color(0xFFd9e7e5),
+            borderRadius: BorderRadius.circular(15)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatar(
+              radius: 20,
+              backgroundColor: const Color(0xFF42887c),
+              child: Image.asset(
+                AppImages.bankIcon,
+                height: 80,
+                width: 30,
+              ),
+            ),
+            const Text(
+              '1,800.00',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const Text("Income"),
           ],
         ),
       ),
@@ -282,12 +332,12 @@ class HomeView extends StatelessWidget {
             fit: BoxFit.contain,
           ),
           color: Colors.black,
-          borderRadius: BorderRadius.circular(20)),
-      child: const Column(
+          borderRadius: BorderRadius.circular(15)),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Column(
@@ -296,37 +346,35 @@ class HomeView extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Available Balance",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
+                  AppFont().S(
+                    text: StringConst.availableBal,
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Icon(
+                  const Icon(
                     Icons.arrow_forward_ios_rounded,
                     color: Colors.white,
                   )
                 ],
               ),
-              Text(
-                " 2,800",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold),
+              AppFont().N(
+                text: ' 2,800',
+                color: Colors.white,
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
               ),
             ],
           ),
           Align(
-            alignment: Alignment.bottomCenter,
-            child: Text(
-              "tap for detail",
-              style: TextStyle(
+              alignment: Alignment.bottomCenter,
+              child: AppFont().S(
+                text: StringConst.tapForDetail,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
                 color: Colors.white,
-              ),
-            ),
-          ),
-          SizedBox(
+              )),
+          const SizedBox(
             height: 4,
           )
         ],
