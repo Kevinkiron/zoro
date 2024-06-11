@@ -1,52 +1,21 @@
-import 'package:expense_tracker/bar_chart.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:expense_tracker/utils/bar_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 
-import 'constants.dart';
+import '../../utils/bottom.dart';
+import '../../utils/constants.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({
-    super.key,
-  });
+class Home extends StatelessWidget {
+  const Home({super.key});
 
-  @override
-  State<MyHomePage> createState() => MyHomePageState();
-}
-
-class MyHomePageState extends State<MyHomePage> {
-  String week = DateFormat("EEEE,").format(DateTime.now());
-  String dateMonth = DateFormat("d MMMM").format(DateTime.now());
   @override
   Widget build(BuildContext context) {
+    String week = DateFormat("EEEE,").format(DateTime.now());
+    String dateMonth = DateFormat("d MMMM").format(DateTime.now());
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 40,
-        type: BottomNavigationBarType.fixed,
-        currentIndex: 1,
-        unselectedItemColor: Colors.black,
-        items: const [
-          BottomNavigationBarItem(
-            label: '',
-            icon: Icon(Icons.home_outlined),
-          ),
-          BottomNavigationBarItem(
-            label: '',
-            icon: Icon(Icons.calendar_today),
-          ),
-          BottomNavigationBarItem(
-            label: '',
-            icon: Icon(Icons.wallet),
-          ),
-          BottomNavigationBarItem(
-            label: '',
-            icon: Icon(Icons.person_outline_outlined),
-          ),
-        ],
-      ),
-      backgroundColor: const Color(0xFFf6f6f6),
+      bottomNavigationBar: BottomNavBar(),
+      //  backgroundColor: const Color(0xFFf6f6f6),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -149,62 +118,63 @@ class MyHomePageState extends State<MyHomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 10),
-                    height: 110,
-                    width: 155,
-                    decoration: BoxDecoration(
-                        color: const Color(0xFFd9e7e5),
-                        borderRadius: BorderRadius.circular(30)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CircleAvatar(
-                          radius: 20,
-                          backgroundColor: const Color(0xFF42887c),
-                          child: Image.asset(
-                            AppImages.bankIcon,
-                            height: 80,
-                            width: 30,
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      decoration: BoxDecoration(
+                          color: const Color(0xFFd9e7e5),
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CircleAvatar(
+                            radius: 20,
+                            backgroundColor: const Color(0xFF42887c),
+                            child: Image.asset(
+                              AppImages.bankIcon,
+                              height: 80,
+                              width: 30,
+                            ),
                           ),
-                        ),
-                        const Text(
-                          '1,800.00',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                        const Text("Income"),
-                      ],
+                          const Text(
+                            '1,800.00',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          const Text("Income"),
+                        ],
+                      ),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 10),
-                    height: 110,
-                    width: 155,
-                    decoration: BoxDecoration(
-                        color: const Color(0xFFe6e2e6),
-                        borderRadius: BorderRadius.circular(30)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CircleAvatar(
-                          radius: 20,
-                          backgroundColor: const Color(0xFF836f81),
-                          child: Image.asset(
-                            AppImages.walletIcon,
-                            height: 80,
-                            width: 30,
+                  const Gap(10),
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      decoration: BoxDecoration(
+                          color: const Color(0xFFe6e2e6),
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CircleAvatar(
+                            radius: 20,
+                            backgroundColor: const Color(0xFF836f81),
+                            child: Image.asset(
+                              AppImages.walletIcon,
+                              height: 80,
+                              width: 30,
+                            ),
                           ),
-                        ),
-                        const Text(
-                          '1,800.00',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                        const Text("Expense"),
-                      ],
+                          const Text(
+                            '1,800.00',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          const Text("Expense"),
+                        ],
+                      ),
                     ),
                   ),
                 ],

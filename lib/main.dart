@@ -1,5 +1,5 @@
-import 'package:expense_tracker/home.dart';
-import 'package:expense_tracker/theme.dart';
+import 'package:expense_tracker/screens/home/home.dart';
+import 'package:expense_tracker/utils/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: lightMode,
       darkTheme: darkMode,
-      home: const MyHomePage(),
+      home: const Home(),
     );
   }
 }
