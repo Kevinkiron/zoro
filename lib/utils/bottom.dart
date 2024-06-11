@@ -1,5 +1,8 @@
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../screens/home/bloc/home_bloc.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({
@@ -8,28 +11,34 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlashyTabBar(
-      selectedIndex: 1,
-      showElevation: true,
-      onItemSelected: (index) {},
-      items: [
-        FlashyTabBarItem(
-          icon: const Icon(Icons.home_rounded),
-          title: const Text('Home'),
-        ),
-        FlashyTabBarItem(
-          icon: const Icon(Icons.bar_chart_rounded),
-          title: const Text('Statistics'),
-        ),
-        FlashyTabBarItem(
-          icon: const Icon(Icons.account_balance_wallet_rounded),
-          title: const Text('Transactions'),
-        ),
-        FlashyTabBarItem(
-          icon: const Icon(Icons.settings),
-          title: const Text('Settings'),
-        ),
-      ],
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        return FlashyTabBar(
+          selectedIndex: state.tabIndex,
+          showElevation: true,
+          onItemSelected: (index) {
+            context.read<HomeBloc>().add(NavigateIndex(index));
+          },
+          items: [
+            FlashyTabBarItem(
+              icon: const Icon(Icons.home_rounded),
+              title: const Text('Home'),
+            ),
+            FlashyTabBarItem(
+              icon: const Icon(Icons.bar_chart_rounded),
+              title: const Text('Statistics'),
+            ),
+            FlashyTabBarItem(
+              icon: const Icon(Icons.account_balance_wallet_rounded),
+              title: const Text('Transactions'),
+            ),
+            FlashyTabBarItem(
+              icon: const Icon(Icons.settings),
+              title: const Text('Settings'),
+            ),
+          ],
+        );
+      },
     );
 
     //  BottomNavigationBar(

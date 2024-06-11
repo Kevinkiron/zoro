@@ -1,8 +1,18 @@
 part of 'home_bloc.dart';
 
-sealed class HomeEvent extends Equatable {
+class HomeEvent extends Equatable {
   const HomeEvent();
 
   @override
   List<Object> get props => [];
+}
+
+class NavigateIndex extends HomeEvent {
+  final int selectIndex;
+  const NavigateIndex(this.selectIndex);
+
+  @override
+  List<Object> get props => [
+        selectIndex,
+      ];
 }

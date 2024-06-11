@@ -1,10 +1,27 @@
 part of 'home_bloc.dart';
 
-sealed class HomeState extends Equatable {
-  const HomeState();
-  
-  @override
-  List<Object> get props => [];
-}
+class HomeState extends Equatable {
+  final int tabIndex;
+  final List<StatelessWidget> pages;
+  const HomeState({
+    this.tabIndex = 0,
+    this.pages = const <StatelessWidget>[
+      HomeView(),
+      Statistics(),
+      Transaction(),
+      Budget(),
+    ],
+  });
+  HomeState copWith({
+    int? tabIndex,
+  }) {
+    return HomeState(
+      tabIndex: tabIndex ?? this.tabIndex,
+    );
+  }
 
-final class HomeInitial extends HomeState {}
+  @override
+  List<Object> get props => [
+        tabIndex,
+      ];
+}
