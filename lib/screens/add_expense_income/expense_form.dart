@@ -6,38 +6,43 @@ class AddExpense extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: const [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return DefaultTabController(
+      length: 2,
+      initialIndex: 1,
+      child: Scaffold(
+        appBar: AppBar(
+          leadingWidth: 100,
+          leading: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Row(
-                children: [
-                  Icon(Icons.cancel_sharp),
-                  Text('CANCEL'),
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(Icons.save_as_rounded),
-                  Text('SAVE'),
-                ],
-              ),
+              Icon(Icons.cancel_sharp),
+              Text('CANCEL'),
             ],
           ),
-        ], 
-        bottom: TabBar(
-          tabs: [
-            Tab(
-              child: AppFont().S(text: 'INCOME'),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(Icons.save_as_rounded),
+                Text('SAVE'),
+              ],
             ),
-            Tab(
-              child: AppFont().S(text: 'INCOME'),
-            )
           ],
+          bottom: TabBar(
+            tabs: [
+              Tab(
+                child: AppFont().S(text: 'INCOME'),
+              ),
+              Tab(
+                child: AppFont().S(text: 'EXPENSE'),
+              )
+            ],
+          ),
         ),
-
+        body: TabBarView(children: [
+          Text('data'),
+          Text('data'),
+        ]),
       ),
     );
   }
