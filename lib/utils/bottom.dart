@@ -23,19 +23,22 @@ class BottomNavBar extends StatelessWidget {
           },
           items: [
             FlashyTabBarItem(
-              icon: const Icon(Icons.home_rounded),
+              activeColor: Colors.green,
+              icon: const Icon(
+                Icons.home_rounded,
+              ),
               title: AppFont().S(text: 'Home'),
             ),
             FlashyTabBarItem(
-              icon: const Icon(Icons.bar_chart_rounded),
-              title: AppFont().S(text: 'Statistics'),
-            ),
-            FlashyTabBarItem(
               icon: const Icon(Icons.account_balance_wallet_rounded),
-              title: AppFont().S(text: 'Transactions'),
+              title: AppFont().S(text: 'Transaction'),
             ),
             FlashyTabBarItem(
-                icon: const Icon(Icons.settings),
+              icon: const Icon(Icons.bar_chart_rounded),
+              title: AppFont().S(text: 'Statistic'),
+            ),
+            FlashyTabBarItem(
+                icon: const Icon(Icons.local_grocery_store_sharp),
                 title: AppFont().S(text: 'Budget')),
           ],
         );

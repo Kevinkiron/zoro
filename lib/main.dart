@@ -1,5 +1,7 @@
 import 'package:expense_tracker/screens/home/bloc/home_bloc.dart';
 import 'package:expense_tracker/screens/home/home.dart';
+import 'package:expense_tracker/screens/splash/bloc/splash_bloc.dart';
+import 'package:expense_tracker/screens/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,6 +19,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => HomeBloc(),
         ),
+        BlocProvider(
+          create: (context) => SplashBloc(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -26,7 +31,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           brightness: Brightness.light,
         ),
-        home: const Home(),
+        home: const Splash(),
       ),
     );
   }

@@ -98,13 +98,14 @@ class HomeView extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 10,
+              height: 15,
             ),
             _budgetForDayCard(),
             const Gap(20),
             AppFont().S(
               fontSize: 18,
-              text: 'Todays transactions',
+              text: 'Last Transactions',
+              color: Color.fromARGB(255, 101, 101, 101),
               fontWeight: FontWeight.bold,
             ),
             const Gap(10),
@@ -119,24 +120,29 @@ class HomeView extends StatelessWidget {
     return ListView.builder(
         padding: EdgeInsets.zero,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: 6,
+        itemCount: 5,
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          return Card(
-            elevation: 6,
-            color: Colors.white,
-            child: ListTile(
-              trailing: const Text('data'),
-              title: const Text('Shopping'),
-              subtitle: const Text('Description'),
-              leading: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: const Icon(Icons.ac_unit_sharp)),
-            ),
+          return Column(
+            children: [
+              Card(
+                elevation: 6,
+                color: Colors.white,
+                child: ListTile(
+                  trailing: const Text('data'),
+                  title: const Text('Shopping'),
+                  subtitle: const Text('Description'),
+                  leading: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 145, 232, 148),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: const Icon(Icons.ac_unit_sharp)),
+                ),
+              ),
+              const Gap(7)
+            ],
           );
         });
   }
@@ -147,36 +153,37 @@ class HomeView extends StatelessWidget {
       height: 90,
       width: 400,
       decoration: BoxDecoration(
-        color: const Color(0xFF1d2a30),
+        color: const Color(0xFF416271),
         borderRadius: BorderRadius.circular(15),
       ),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Budget For Today',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold),
+              AppFont().S(
+                text: StringConst.budgetForToday,
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
               ),
-              Text(
-                'Cash Available',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                ),
+              AppFont().S(
+                text: StringConst.cashAvailable,
+                color: Colors.grey,
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
               ),
             ],
           ),
-          Text(
+          const Text(
             '2,478',
             style: TextStyle(
-                color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+              color: Colors.greenAccent,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),
@@ -192,7 +199,7 @@ class HomeView extends StatelessWidget {
         decoration: BoxDecoration(
             color: const Color(0xFFEBD4EB),
             borderRadius: BorderRadius.circular(15)),
-        child: Column(
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
@@ -204,11 +211,23 @@ class HomeView extends StatelessWidget {
                 width: 30,
               ),
             ),
-            const Text(
-              '1,800.00',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            const Gap(10),
+            Column(
+              children: [
+                AppFont().N(
+                  text: '1,800',
+                  color: const Color(0xFF836f81),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+                AppFont().S(
+                  text: StringConst.expense,
+                  color: const Color(0xFF836f81),
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ],
             ),
-            const Text("Expense"),
           ],
         ),
       ),
@@ -224,7 +243,7 @@ class HomeView extends StatelessWidget {
         decoration: BoxDecoration(
             color: const Color(0xFFd9e7e5),
             borderRadius: BorderRadius.circular(15)),
-        child: Column(
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
@@ -236,11 +255,23 @@ class HomeView extends StatelessWidget {
                 width: 30,
               ),
             ),
-            const Text(
-              '1,800.00',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            const Gap(10),
+            Column(
+              children: [
+                AppFont().N(
+                  text: '1,800',
+                  color: const Color(0xFF42887c),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+                AppFont().S(
+                  text: StringConst.income,
+                  color: const Color(0xFF42887c),
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ],
             ),
-            const Text("Income"),
           ],
         ),
       ),
@@ -331,7 +362,7 @@ class HomeView extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             fit: BoxFit.contain,
           ),
-          color: Colors.black,
+          color: const Color(0xFF42887c),
           borderRadius: BorderRadius.circular(15)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

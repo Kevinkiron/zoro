@@ -13,8 +13,8 @@ class HomeState extends Equatable {
     ],
     this.pages = const <StatelessWidget>[
       HomeView(),
-      Statistics(),
       Transaction(),
+      Statistics(),
       Budget(),
     ],
   });
