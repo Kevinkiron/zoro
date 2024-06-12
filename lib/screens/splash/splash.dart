@@ -14,7 +14,7 @@ class Splash extends StatelessWidget {
     context.read<SplashBloc>().add(const NavigateToHome());
     return BlocConsumer<SplashBloc, SplashState>(listener: (context, state) {
       if (state.status == Status.success) {
-        Future.delayed(const Duration(seconds: 3), () {
+        Future.delayed(const Duration(seconds: 4), () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => const Home()));
         });
@@ -24,11 +24,7 @@ class Splash extends StatelessWidget {
           body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container()
-          // Lottie.asset(
-          //   'assets/images/splash.json',
-          //   fit: BoxFit.cover,
-          // ),
+          Lottie.asset('assets/images/splash2.json'),
         ],
       ));
     });

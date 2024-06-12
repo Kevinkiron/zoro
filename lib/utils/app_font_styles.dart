@@ -7,12 +7,14 @@ class AppFont {
     Color color = Colors.black,
     double? height,
     FontWeight? fontWeight,
+    TextAlign? align,
     double? fontSize,
     TextOverflow overflow = TextOverflow.ellipsis,
   }) {
     return Text(
       overflow: overflow,
       text,
+      textAlign: align,
       style: GoogleFonts.raleway(
         height: height,
         fontSize: fontSize,
@@ -26,12 +28,14 @@ class AppFont {
     required String text,
     Color color = Colors.black,
     double? height,
+    TextAlign? align,
     FontWeight? fontWeight,
     double? fontSize,
     TextOverflow overflow = TextOverflow.ellipsis,
   }) {
     return Text(
       overflow: overflow,
+      textAlign: align,
       text,
       style: GoogleFonts.lato(
         height: height,

@@ -70,17 +70,11 @@ class HomeView extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Card(
-              elevation: 6,
-              color: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              child: FlipCard(
-                direction: FlipDirection.HORIZONTAL,
-                speed: 1000,
-                front: _frontSideTopCard(),
-                back: _backSideTopCard(),
-              ),
+            FlipCard(
+              direction: FlipDirection.HORIZONTAL,
+              speed: 1000,
+              front: _frontSideTopCard(),
+              back: _backSideTopCard(),
             ),
             const SizedBox(
               height: 10,
@@ -126,7 +120,7 @@ class HomeView extends StatelessWidget {
           return Column(
             children: [
               Card(
-                elevation: 6,
+                elevation: 2,
                 color: Colors.white,
                 child: ListTile(
                   trailing: const Text('data'),
@@ -180,7 +174,7 @@ class HomeView extends StatelessWidget {
           const Text(
             '2,478',
             style: TextStyle(
-              color: Colors.greenAccent,
+              color: Colors.white,
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
@@ -286,6 +280,14 @@ class HomeView extends StatelessWidget {
         horizontal: 20,
       ),
       decoration: BoxDecoration(
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.grey,
+            offset: Offset(1, 1),
+            spreadRadius: 3,
+            blurRadius: 6,
+          ),
+        ],
         image: const DecorationImage(
           image: AssetImage(
             AppImages.balanceCard,
@@ -355,6 +357,14 @@ class HomeView extends StatelessWidget {
         horizontal: 20,
       ),
       decoration: BoxDecoration(
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.grey,
+              offset: Offset(1, 1),
+              spreadRadius: 3,
+              blurRadius: 6,
+            ),
+          ],
           image: const DecorationImage(
             image: AssetImage(
               AppImages.balanceCard,

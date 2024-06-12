@@ -13,105 +13,127 @@ class CalculatorView extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => MathBloc(),
-      child: Material(
-        child: Container(
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.green.shade100, width: 2)),
-          child: Column(
-            children: [
-              const Gap(10),
-              AppFont()
-                  .N(text: '32,000', fontSize: 20, fontWeight: FontWeight.bold),
-              const Gap(20),
-              BlocBuilder<MathBloc, MathState>(
-                builder: (context, state) {
-                  return Wrap(
-                    alignment: WrapAlignment.end,
-                    runSpacing: 5,
-                    spacing: 4,
-                    children: state.numbers
-                        .map(
-                          (value) => Container(
-                            margin: const EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                boxShadow:
-                                    ['÷', 'x', '-', '+', '='].contains(value)
-                                        ? const [
-                                            BoxShadow(
-                                              color: Color(0xFFC15D17),
-                                              offset: Offset(3, 3),
-                                              spreadRadius: 1,
-                                              blurRadius: 1,
-                                            ),
-                                            BoxShadow(
-                                              color: Color(0xFFDF8419),
-                                              offset: Offset(-2, -2),
-                                              spreadRadius: 1,
-                                              blurRadius: 0,
-                                            ),
-                                          ]
-                                        : const [
-                                            BoxShadow(
-                                              color: Color(0xFFA0ADC4),
-                                              offset: Offset(3, 3),
-                                              spreadRadius: 1,
-                                              blurRadius: 1,
-                                            ),
-                                            BoxShadow(
-                                              color: Color(0xFFC5CEDF),
-                                              offset: Offset(-2, -2),
-                                              spreadRadius: 1,
-                                              blurRadius: 3,
-                                            ),
-                                          ],
-                                gradient: ['C', 'AC', "%"].contains(value)
-                                    ? const LinearGradient(
-                                        colors: [
-                                          Color(0xFFA0ADC4),
-                                          Color(0xFFC5CEDF),
-                                        ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                      )
-                                    : ['÷', 'x', '-', '+', '='].contains(value)
-                                        ? const LinearGradient(
-                                            colors: [
-                                              Color(0xFFDF8419),
-                                              Color(0xFFC15D17),
-                                            ],
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                          )
-                                        : const LinearGradient(
-                                            colors: [
-                                              Color(0xFFCED2DE),
-                                              Color(0xFFECEFF4),
-                                            ],
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                          ),
-                                color: Colors.deepPurpleAccent,
-                                borderRadius: BorderRadius.circular(18)),
+      child: Expanded(
+        child: BlocBuilder<MathBloc, MathState>(
+          builder: (context, state) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const Gap(10),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    alignment: Alignment.bottomRight,
+                    width: screenSize.width,
+                    child: AppFont().N(
+                      text: ('${state.number1}${state.operand}${state.number2}')
+                              .isEmpty
+                          ? '0'
+                          : '${state.number1}${state.operand}${state.number2}',
+                      fontSize: 40,
+                      align: TextAlign.end,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const Gap(20),
+                Wrap(
+                  alignment: WrapAlignment.end,
+                  // runSpacing: 5,
+                  // spacing: 4,
+                  children: state.numbers
+                      .map(
+                        (value) => InkWell(
+                          onTap: () {
+                            context.read<MathBloc>().add(OnButtonTap(value));
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.all(6),
+                            decoration: _buttonBoxDecoration(value),
                             alignment: Alignment.center,
                             width: ['0'].contains(value)
-                                ? screenSize.width / 2.5
-                                : screenSize.width / 5.5,
+                                ? screenSize.width / 2.27
+                                : screenSize.width / 4.8,
                             height: 65,
                             child: buildButton(value),
                           ),
-                        )
-                        .toList(),
-                  );
-                },
-              )
-            ],
-          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
   }
 
+  BoxDecoration _buttonBoxDecoration(value) {
+    return BoxDecoration(
+        boxShadow: ['÷', 'x', '-', '+', '='].contains(value)
+            ? const [
+                BoxShadow(
+                  color: Color(0xFFC15D17),
+                  offset: Offset(3, 3),
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                ),
+                BoxShadow(
+                  color: Color(0xFFDF8419),
+                  offset: Offset(-2, -2),
+                  spreadRadius: 1,
+                  blurRadius: 0,
+                ),
+              ]
+            : const [
+                BoxShadow(
+                  color: Color(0xFFA0ADC4),
+                  offset: Offset(3, 3),
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                ),
+                BoxShadow(
+                  color: Color(0xFFC5CEDF),
+                  offset: Offset(-2, -2),
+                  spreadRadius: 1,
+                  blurRadius: 3,
+                ),
+              ],
+        gradient: ['C', 'AC', "%"].contains(value)
+            ? const LinearGradient(
+                colors: [
+                  Color(0xFFA0ADC4),
+                  Color(0xFFC5CEDF),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              )
+            : ['÷', 'x', '-', '+', '='].contains(value)
+                ? const LinearGradient(
+                    colors: [
+                      Color(0xFFDF8419),
+                      Color(0xFFC15D17),
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  )
+                : const LinearGradient(
+                    colors: [
+                      Color(0xFFCED2DE),
+                      Color(0xFFECEFF4),
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+        borderRadius: BorderRadius.circular(18));
+  }
+
   Widget buildButton(value) {
-    return Text(value);
+    return AppFont().N(
+      text: value,
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
+    );
   }
 }
