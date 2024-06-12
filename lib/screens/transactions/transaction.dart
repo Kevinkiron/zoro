@@ -87,8 +87,7 @@ class Transaction extends StatelessWidget {
                                   width: 40,
                                   height: 40,
                                   decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 145, 232, 148),
+                                      color: Color(0xFF91E894),
                                       borderRadius: BorderRadius.circular(10)),
                                   child: const Icon(Icons.ac_unit_sharp)),
                             ),
