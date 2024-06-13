@@ -3,6 +3,7 @@ import 'package:expense_tracker/utils/app_font_styles.dart';
 import 'package:expense_tracker/utils/string_const.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
@@ -10,6 +11,7 @@ import 'package:intl/intl.dart';
 import '../../utils/bottom.dart';
 import '../../utils/constants.dart';
 import '../../utils/floating_button.dart';
+import '../../utils/pie_chart.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -20,7 +22,6 @@ class Home extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           bottomNavigationBar: const BottomNavBar(),
-          backgroundColor: const Color(0xFFf6f6f6),
           body: state.pages[state.tabIndex],
           floatingActionButton: const FloatButton(),
         );
@@ -48,7 +49,7 @@ class HomeView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 60,
+              height: 30,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -277,7 +278,7 @@ class HomeView extends StatelessWidget {
       height: 150,
       // width: 400,
       padding: const EdgeInsets.symmetric(
-        horizontal: 20,
+        horizontal: 10,
       ),
       decoration: BoxDecoration(
         boxShadow: const [
@@ -298,51 +299,70 @@ class HomeView extends StatelessWidget {
         color: Colors.black,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Row(
         children: [
-          SizedBox(
-            height: 10,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          PieChartView(),
+          Gap(10),
+          Row(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "Available Balance",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
+                  Row(
+                    children: [
+                      Container(
+                        color: Colors.blue,
+                        height: 15,
+                        width: 15,
+                      ),
+                      const Gap(6),
+                      AppFont().S(text: '%45 Shopping', color: Colors.white)
+                    ],
                   ),
-                  Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    color: Colors.white,
-                  )
+                  Gap(10),
+                  Row(
+                    children: [
+                      Container(
+                        color: Colors.blue,
+                        height: 15,
+                        width: 15,
+                      ),
+                      const Gap(6),
+                      AppFont().S(text: '%45 Shopping', color: Colors.white)
+                    ],
+                  ),
                 ],
               ),
-              Text(
-                " 2,800",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold),
-              ),
+              Gap(10),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        color: Colors.blue,
+                        height: 15,
+                        width: 15,
+                      ),
+                      const Gap(6),
+                      AppFont().S(text: '%45 Shopping', color: Colors.white)
+                    ],
+                  ),
+                  Gap(10),
+                  Row(
+                    children: [
+                      Container(
+                        color: Colors.blue,
+                        height: 15,
+                        width: 15,
+                      ),
+                      const Gap(6),
+                      AppFont().S(text: '%45 Shopping', color: Colors.white)
+                    ],
+                  ),
+                ],
+              )
             ],
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Text(
-              "tap for detail",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 4,
           )
         ],
       ),

@@ -6,7 +6,7 @@ import 'package:gap/gap.dart';
 import '../screens/add_expense_income/bloc/math_bloc.dart';
 
 class CalculatorView extends StatelessWidget {
-  CalculatorView({super.key});
+  const CalculatorView({super.key});
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -26,14 +26,14 @@ class CalculatorView extends StatelessWidget {
                     alignment: Alignment.bottomRight,
                     width: screenSize.width,
                     child: AppFont().N(
-                      text: ('${state.number1}${state.operand}${state.number2}')
-                              .isEmpty
-                          ? '0'
-                          : '${state.number1}${state.operand}${state.number2}',
-                      fontSize: 40,
-                      align: TextAlign.end,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        text: ('${state.number1}${state.operand}${state.number2}')
+                                .isEmpty
+                            ? '0'
+                            : '${state.number1}${state.operand}${state.number2}',
+                        fontSize: 40,
+                        align: TextAlign.end,
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.visible),
                   ),
                 ),
                 const Gap(20),

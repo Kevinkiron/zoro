@@ -14,7 +14,6 @@ class AddExpense extends StatelessWidget {
       length: 2,
       initialIndex: 0,
       child: Scaffold(
-        backgroundColor: const Color(0xFFf6f6f6),
         appBar: AppBar(
           leadingWidth: 100,
           leading: GestureDetector(
@@ -116,7 +115,7 @@ class AddExpense extends StatelessWidget {
           ),
         ),
         const Gap(4),
-        CalculatorView(),
+        const CalculatorView(),
         const Gap(10),
       ],
     );
@@ -131,11 +130,8 @@ class AddExpense extends StatelessWidget {
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _accountSelection(),
-                  const Gap(8),
-                  _categorySelection(),
                 ],
               ),
               const Gap(10),

@@ -29,8 +29,11 @@ class MyApp extends StatelessWidget {
         // theme: lightMode,
         // darkTheme: darkMode,
         theme: ThemeData(
-          brightness: Brightness.light,
-        ),
+            brightness: Brightness.light,
+            scaffoldBackgroundColor: const Color(0xFFf6f6f6),
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Color(0xFFf6f6f6),
+            )),
         home: const Splash(),
       ),
     );

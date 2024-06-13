@@ -9,16 +9,21 @@ class BarChartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 1.2,
+      aspectRatio: 1.28,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
                 spreadRadius: 0,
-                offset: const Offset(0.7, 2),
+                offset: const Offset(1, 1),
                 blurRadius: 5,
+                color: Colors.grey.withOpacity(0.5)),
+            BoxShadow(
+                spreadRadius: 0,
+                offset: const Offset(0, 0),
+                blurRadius: 1,
                 color: Colors.grey.withOpacity(0.5))
           ],
           color: Colors.white,

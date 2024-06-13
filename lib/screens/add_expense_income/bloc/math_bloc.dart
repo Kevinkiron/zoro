@@ -22,55 +22,15 @@ class MathBloc extends Bloc<MathEvent, MathState> {
       add(Percent(event.value));
       return;
     }
-    if (event.value == 'AC') {
+    if (event.value == 'C') {
       add(Delete(event.value));
       return;
     }
-    if (event.value == 'C') {
+    if (event.value == 'AC') {
       add(ClearAll(event.value));
       return;
     }
     add(Append(event.value));
-
-    // if (event.value == state.numbers.contains('C').toString()) {
-    //   emit(state.copyWith(number1: '', operand: '', number2: ''));
-    //   return;
-    // }
-
-    //  String? value;
-    //   if (event.value != state.numbers.contains('.').toString() &&
-    //       int.tryParse(event.value) == null) {
-    //     if (state.operand.isNotEmpty && state.number2.isNotEmpty) {}
-    //     emit(state.copyWith(operand: event.value));
-    //   } else if (state.number1.isEmpty || state.operand.isEmpty) {
-    //     if (event.value == state.numbers.contains('.').toString() &&
-    //         state.number1.contains('.')) {
-    //       return;
-    //     }
-    //     if (event.value == state.numbers.contains('.').toString() &&
-    //             state.number1.isEmpty ||
-    //         state.number1 == state.numbers.contains('.').toString()) {
-    //       value = '0.';
-    //     }
-    //     emit(state.copyWith(
-    //       number1: event.value,
-    //     ));
-    //   } else if (state.number2.isEmpty || state.operand.isNotEmpty) {
-    //     if (event.value == state.numbers.contains('.').toString() &&
-    //         state.number2.contains('.')) {
-    //       return;
-    //     }
-    //     if (event.value == state.numbers.contains('.').toString() &&
-    //             state.number2.isEmpty ||
-    //         state.number2 == state.numbers.contains('.').toString()) {
-    //       value = '0.';
-    //     }
-
-    //     emit(state.copyWith(
-    //       number2: event.value,
-    //     ));
-    //   }
-    // }
   }
 
   calculate(Calculate event, Emitter<MathState> emit) {

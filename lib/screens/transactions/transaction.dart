@@ -10,12 +10,11 @@ class Transaction extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: const Color(0xFFf6f6f6),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             children: [
-              const Gap(50),
+              const Gap(30),
               EasyDateTimeLine(
                 initialDate: DateTime.now(),
               ),
