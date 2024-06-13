@@ -1,4 +1,5 @@
 import 'package:expense_tracker/utils/app_font_styles.dart';
+import 'package:expense_tracker/utils/string_const.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -13,8 +14,9 @@ class AddExpense extends StatelessWidget {
       length: 2,
       initialIndex: 0,
       child: Scaffold(
+        backgroundColor: const Color(0xFFf6f6f6),
         appBar: AppBar(
-          leadingWidth: 90,
+          leadingWidth: 100,
           leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -22,6 +24,7 @@ class AddExpense extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                const Gap(5),
                 const Icon(Icons.cancel_sharp),
                 const Gap(5),
                 AppFont().S(text: 'CANCEL'),
@@ -42,12 +45,28 @@ class AddExpense extends StatelessWidget {
             ),
           ],
           bottom: TabBar(
+            isScrollable: false,
+            indicatorSize: TabBarIndicatorSize.tab,
+            enableFeedback: false,
+            unselectedLabelColor: Colors.grey,
+            unselectedLabelStyle: TextStyle(
+                fontStyle: AppFont().S(text: '').style?.fontStyle,
+                fontSize: 12,
+                fontWeight: FontWeight.w600),
+            labelColor: Colors.lightBlue,
+            labelStyle: TextStyle(
+                fontStyle: AppFont().S(text: '').style?.fontStyle,
+                fontSize: 16,
+                fontWeight: FontWeight.w600),
+            dividerColor: Colors.transparent,
+            indicator: const BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.lightBlue))),
             tabs: [
               Tab(
-                child: AppFont().S(text: 'INCOME'),
+                text: StringConst.income.toUpperCase(),
               ),
               Tab(
-                child: AppFont().S(text: 'EXPENSE'),
+                text: StringConst.expense.toUpperCase(),
               )
             ],
           ),
@@ -65,7 +84,7 @@ class AddExpense extends StatelessWidget {
       children: [
         const Gap(20),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Column(
             children: [
               Row(
@@ -77,15 +96,17 @@ class AddExpense extends StatelessWidget {
                 ],
               ),
               const Gap(10),
-              const TextField(
+              TextField(
                 maxLines: 2,
                 decoration: InputDecoration(
-                  hintText: 'Add Comment On Expense...',
+                  hintText: 'Add notes...',
                   hintStyle: TextStyle(
-                    fontWeight: FontWeight.normal,
+                    fontStyle: AppFont().S(text: '').style?.fontStyle,
+                    fontWeight: FontWeight.w300,
+                    fontSize: 14,
                   ),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
+                  border: const OutlineInputBorder(
+                    borderSide: const BorderSide(
                       color: Colors.black,
                     ),
                   ),
@@ -106,7 +127,7 @@ class AddExpense extends StatelessWidget {
       children: [
         const Gap(20),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Column(
             children: [
               Row(
@@ -118,14 +139,16 @@ class AddExpense extends StatelessWidget {
                 ],
               ),
               const Gap(10),
-              const TextField(
+              TextField(
                 maxLines: 2,
                 decoration: InputDecoration(
-                  hintText: 'Add Comment On Expense...',
+                  hintText: 'Add notes...',
                   hintStyle: TextStyle(
-                    fontWeight: FontWeight.normal,
+                    fontStyle: AppFont().S(text: '').style?.fontStyle,
+                    fontWeight: FontWeight.w300,
+                    fontSize: 14,
                   ),
-                  border: OutlineInputBorder(
+                  border: const OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Colors.black,
                     ),

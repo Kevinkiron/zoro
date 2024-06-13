@@ -20,7 +20,7 @@ class Home extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           bottomNavigationBar: const BottomNavBar(),
-          //  backgroundColor: const Color(0xFFf6f6f6),
+          backgroundColor: const Color(0xFFf6f6f6),
           body: state.pages[state.tabIndex],
           floatingActionButton: const FloatButton(),
         );

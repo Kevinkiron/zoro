@@ -21,12 +21,13 @@ class Splash extends StatelessWidget {
       }
     }, builder: (context, state) {
       return Scaffold(
+          backgroundColor: const Color(0xFFf6f6f6),
           body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Lottie.asset('assets/images/splash2.json'),
-        ],
-      ));
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Lottie.asset('assets/images/splash2.json'),
+            ],
+          ));
     });
   }
 }

@@ -8,15 +8,16 @@ class Statistics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+        backgroundColor: const Color(0xFFf6f6f6),
         body: Column(
-      children: [
-        SizedBox(
-          height: 50,
-        ),
-        Text('Transactions'),
-        Gap(20),
-        BarChartView(),
-      ],
-    ));
+          children: [
+            SizedBox(
+              height: 50,
+            ),
+            Text('Transactions'),
+            Gap(20),
+            BarChartView(),
+          ],
+        ));
   }
 }
