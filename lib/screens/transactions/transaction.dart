@@ -49,7 +49,7 @@ class Transaction extends StatelessWidget {
                       return Column(
                         children: [
                           Card(
-                            elevation: 6,
+                            elevation: 0,
                             color: Colors.white,
                             child: ListTile(
                               trailing: const Text('data'),
@@ -77,7 +77,7 @@ class Transaction extends StatelessWidget {
                       return Column(
                         children: [
                           Card(
-                            elevation: 6,
+                            elevation: 0,
                             color: Colors.white,
                             child: ListTile(
                               trailing: const Text('data'),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 
-import 'bloc/splash_bloc.dart';
+import '../../data/bloc/splash_bloc/splash_bloc.dart';
 
 class Splash extends StatelessWidget {
   const Splash({super.key});

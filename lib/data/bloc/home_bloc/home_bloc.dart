@@ -4,8 +4,8 @@ import 'package:expense_tracker/screens/home/home.dart';
 import 'package:expense_tracker/screens/transactions/transaction.dart';
 import 'package:flutter/material.dart';
 
-import '../../budget/budget.dart';
-import '../../statistics/statistics.dart';
+import '../../../screens/budget/budget.dart';
+import '../../../screens/statistics/statistics.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

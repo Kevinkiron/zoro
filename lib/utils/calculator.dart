@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-import '../screens/add_expense_income/bloc/math_bloc.dart';
+import '../data/bloc/math_bloc/math_bloc.dart';
 
 class CalculatorView extends StatelessWidget {
   const CalculatorView({super.key});

@@ -71,14 +71,14 @@ class AddExpense extends StatelessWidget {
           ),
         ),
         body: TabBarView(children: [
-          _incomeTab(),
-          _expenseTab(),
+          _incomeTab(context),
+          _expenseTab(context),
         ]),
       ),
     );
   }
 
-  Column _expenseTab() {
+  Column _expenseTab(BuildContext context) {
     return Column(
       children: [
         const Gap(20),
@@ -89,9 +89,9 @@ class AddExpense extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _accountSelection(),
+                  _accountSelection(context),
                   const Gap(8),
-                  _categorySelection(),
+                  _categorySelection(context),
                 ],
               ),
               const Gap(10),
@@ -121,7 +121,7 @@ class AddExpense extends StatelessWidget {
     );
   }
 
-  Column _incomeTab() {
+  Column _incomeTab(BuildContext context) {
     return Column(
       children: [
         const Gap(20),
@@ -131,7 +131,7 @@ class AddExpense extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  _accountSelection(),
+                  _accountSelection(context),
                 ],
               ),
               const Gap(10),
@@ -161,37 +161,23 @@ class AddExpense extends StatelessWidget {
     );
   }
 
-  Expanded _accountSelection() {
+  Expanded _accountSelection(BuildContext context) {
     return Expanded(
-        child: Container(
-      height: 50,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        gradient: const LinearGradient(
-          colors: [
-            Color(0xFFA0ADC4),
-            Color(0xFFC5CEDF),
-            Color(0xFFC5CEDF),
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.assured_workload_outlined),
-          const Gap(8),
-          AppFont().S(text: 'Account'),
-        ],
-      ),
-    ));
-  }
-
-  Expanded _categorySelection() {
-    return Expanded(
+        child: GestureDetector(
+      onTap: () {
+        showModalBottomSheet(
+            context: context,
+            builder: (BuildContext context) {
+              return Container(
+                width: double.infinity,
+                height: 300,
+              );
+            });
+      },
       child: Container(
+        height: 50,
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
           gradient: const LinearGradient(
             colors: [
               Color(0xFFA0ADC4),
@@ -201,16 +187,54 @@ class AddExpense extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
-          borderRadius: BorderRadius.circular(10),
         ),
-        height: 50,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.category_rounded),
+            const Icon(Icons.assured_workload_outlined),
             const Gap(8),
-            AppFont().S(text: 'Category'),
+            AppFont().S(text: 'Account'),
           ],
+        ),
+      ),
+    ));
+  }
+
+  Expanded _categorySelection(BuildContext context) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
+          showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return Container(
+                  width: double.infinity,
+                  height: 300,
+                );
+              });
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [
+                Color(0xFFA0ADC4),
+                Color(0xFFC5CEDF),
+                Color(0xFFC5CEDF),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          height: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.category_rounded),
+              const Gap(8),
+              AppFont().S(text: 'Category'),
+            ],
+          ),
         ),
       ),
     );

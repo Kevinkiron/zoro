@@ -1,4 +1,4 @@
-import 'package:expense_tracker/screens/home/bloc/home_bloc.dart';
+import 'package:expense_tracker/data/bloc/home_bloc/home_bloc.dart';
 import 'package:expense_tracker/utils/app_font_styles.dart';
 import 'package:expense_tracker/utils/string_const.dart';
 import 'package:flip_card/flip_card.dart';
@@ -114,14 +114,14 @@ class HomeView extends StatelessWidget {
   ListView todaysTransact() {
     return ListView.builder(
         padding: EdgeInsets.zero,
-        physics: const NeverScrollableScrollPhysics(),
+        physics: NeverScrollableScrollPhysics(),
         itemCount: 5,
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return Column(
             children: [
               Card(
-                elevation: 2,
+                elevation: 0,
                 color: Colors.white,
                 child: ListTile(
                   trailing: const Text('data'),
@@ -131,7 +131,7 @@ class HomeView extends StatelessWidget {
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 145, 232, 148),
+                          color: Color(0xFF91E894),
                           borderRadius: BorderRadius.circular(10)),
                       child: const Icon(Icons.ac_unit_sharp)),
                 ),

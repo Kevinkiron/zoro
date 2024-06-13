@@ -3,7 +3,7 @@ import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../screens/home/bloc/home_bloc.dart';
+import '../data/bloc/home_bloc/home_bloc.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({
