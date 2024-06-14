@@ -95,7 +95,7 @@ class HomeView extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            _budgetForDayCard(),
+            //  _budgetForDayCard(),
             const Gap(20),
             AppFont().S(
               fontSize: 18,
@@ -148,7 +148,7 @@ class HomeView extends StatelessWidget {
       height: 90,
       width: 400,
       decoration: BoxDecoration(
-        color: const Color(0xFF416271),
+        color: Color.fromARGB(255, 91, 184, 168),
         borderRadius: BorderRadius.circular(15),
       ),
       child: Row(
@@ -188,7 +188,7 @@ class HomeView extends StatelessWidget {
   Card _expenseCard() {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      elevation: 6,
+      elevation: 0,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         decoration: BoxDecoration(
@@ -232,7 +232,7 @@ class HomeView extends StatelessWidget {
   Card _incomeCard() {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      elevation: 6,
+      elevation: 0,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         decoration: BoxDecoration(
@@ -301,68 +301,71 @@ class HomeView extends StatelessWidget {
       ),
       child: Row(
         children: [
-          PieChartView(),
+          Expanded(child: PieChartView()),
           Gap(10),
-          Row(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        color: Colors.blue,
-                        height: 15,
-                        width: 15,
-                      ),
-                      const Gap(6),
-                      AppFont().S(text: '%45 Shopping', color: Colors.white)
-                    ],
-                  ),
-                  Gap(10),
-                  Row(
-                    children: [
-                      Container(
-                        color: Colors.blue,
-                        height: 15,
-                        width: 15,
-                      ),
-                      const Gap(6),
-                      AppFont().S(text: '%45 Shopping', color: Colors.white)
-                    ],
-                  ),
-                ],
-              ),
-              Gap(10),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        color: Colors.blue,
-                        height: 15,
-                        width: 15,
-                      ),
-                      const Gap(6),
-                      AppFont().S(text: '%45 Shopping', color: Colors.white)
-                    ],
-                  ),
-                  Gap(10),
-                  Row(
-                    children: [
-                      Container(
-                        color: Colors.blue,
-                        height: 15,
-                        width: 15,
-                      ),
-                      const Gap(6),
-                      AppFont().S(text: '%45 Shopping', color: Colors.white)
-                    ],
-                  ),
-                ],
-              )
-            ],
+          Expanded(
+            flex: 3,
+            child: Row(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          color: Colors.blue,
+                          height: 15,
+                          width: 15,
+                        ),
+                        const Gap(6),
+                        AppFont().S(text: '%45 Shopping', color: Colors.white)
+                      ],
+                    ),
+                    Gap(10),
+                    Row(
+                      children: [
+                        Container(
+                          color: Colors.blue,
+                          height: 15,
+                          width: 15,
+                        ),
+                        const Gap(6),
+                        AppFont().S(text: '%45 Shopping', color: Colors.white)
+                      ],
+                    ),
+                  ],
+                ),
+                Gap(10),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          color: Colors.blue,
+                          height: 15,
+                          width: 15,
+                        ),
+                        const Gap(6),
+                        AppFont().S(text: '%45 Shopping', color: Colors.white)
+                      ],
+                    ),
+                    Gap(10),
+                    Row(
+                      children: [
+                        Container(
+                          color: Colors.blue,
+                          height: 15,
+                          width: 15,
+                        ),
+                        const Gap(6),
+                        AppFont().S(text: '%45 Shopping', color: Colors.white)
+                      ],
+                    ),
+                  ],
+                )
+              ],
+            ),
           )
         ],
       ),
