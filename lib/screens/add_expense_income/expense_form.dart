@@ -105,7 +105,7 @@ class AddExpense extends StatelessWidget {
                     fontSize: 14,
                   ),
                   border: const OutlineInputBorder(
-                    borderSide: const BorderSide(
+                    borderSide: BorderSide(
                       color: Colors.black,
                     ),
                   ),
@@ -115,7 +115,7 @@ class AddExpense extends StatelessWidget {
           ),
         ),
         const Gap(4),
-        const CalculatorView(),
+        //CalculatorView(),
         const Gap(10),
       ],
     );
