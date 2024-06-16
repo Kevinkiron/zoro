@@ -1,4 +1,5 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
+import 'package:expense_tracker/utils/app_font_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -19,7 +20,8 @@ class Transaction extends StatelessWidget {
                 initialDate: DateTime.now(),
               ),
               const Gap(10),
-              const Card(
+              Card(
+                elevation: 2,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(30))),
                 child: TabBar(
@@ -27,18 +29,24 @@ class Transaction extends StatelessWidget {
                   indicatorSize: TabBarIndicatorSize.tab,
                   enableFeedback: false,
                   dividerColor: Colors.transparent,
-                  indicator: BoxDecoration(
-                      color: Color(0xFF42887c),
+                  indicator: const BoxDecoration(
+                      gradient: LinearGradient(colors: [
+                        Color(0xFF42887c),
+                        //  Color.fromARGB(255, 116, 164, 151),
+                        Color(0xFF42887c),
+                      ]),
                       borderRadius: BorderRadius.all(Radius.circular(30))),
                   tabs: [
                     Tab(
-                      child: Text(
-                        'Expenses',
-                      ),
-                    ),
+                        child: AppFont().S(
+                            text: 'Expenses',
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold)),
                     Tab(
-                      child: Text('Incomes'),
-                    ),
+                        child: AppFont().S(
+                            text: 'Income',
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold)),
                   ],
                 ),
               ),
