@@ -39,7 +39,7 @@ class BarChartView extends StatelessWidget {
                   BarChartRodData(
                     toY: 20,
                     width: 18,
-                    color: Colors.black,
+                    color: Color(0xFF42887c),
                     borderRadius: BorderRadius.circular(20),
                     backDrawRodData: BackgroundBarChartRodData(
                       show: true,
@@ -55,7 +55,7 @@ class BarChartView extends StatelessWidget {
                   BarChartRodData(
                     toY: 10,
                     width: 18,
-                    color: Colors.black,
+                    color: Color(0xFF42887c),
                     borderRadius: BorderRadius.circular(20),
                     backDrawRodData: BackgroundBarChartRodData(
                       show: true,
@@ -71,7 +71,7 @@ class BarChartView extends StatelessWidget {
                   BarChartRodData(
                     toY: 4,
                     width: 18,
-                    color: Colors.black,
+                    color: Color(0xFF42887c),
                     borderRadius: BorderRadius.circular(20),
                     backDrawRodData: BackgroundBarChartRodData(
                       show: true,
@@ -87,7 +87,7 @@ class BarChartView extends StatelessWidget {
                   BarChartRodData(
                     toY: 30,
                     width: 18,
-                    color: Colors.red,
+                    color: Color(0xFFff3623),
                     borderRadius: BorderRadius.circular(20),
                     // backDrawRodData: BackgroundBarChartRodData(
                     //   color: Colors.grey.withOpacity(0.5),
@@ -103,7 +103,7 @@ class BarChartView extends StatelessWidget {
                   BarChartRodData(
                     toY: 25,
                     width: 18,
-                    color: Colors.black,
+                    color: Color(0xFF42887c),
                     borderRadius: BorderRadius.circular(20),
                     backDrawRodData: BackgroundBarChartRodData(
                       show: true,
@@ -119,7 +119,7 @@ class BarChartView extends StatelessWidget {
                   BarChartRodData(
                     toY: 20,
                     width: 18,
-                    color: Colors.black,
+                    color: Color(0xFF42887c),
                     borderRadius: BorderRadius.circular(20),
                     backDrawRodData: BackgroundBarChartRodData(
                       show: true,
@@ -135,7 +135,7 @@ class BarChartView extends StatelessWidget {
                   BarChartRodData(
                     toY: 20,
                     width: 18,
-                    color: Colors.black,
+                    color: Color(0xFF42887c),
                     borderRadius: BorderRadius.circular(20),
                     backDrawRodData: BackgroundBarChartRodData(
                       show: true,

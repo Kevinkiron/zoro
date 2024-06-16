@@ -11,7 +11,6 @@ import 'package:intl/intl.dart';
 import '../../utils/bottom.dart';
 import '../../utils/constants.dart';
 import '../../utils/floating_button.dart';
-import '../../utils/pie_chart.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -39,107 +38,114 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     String week = DateFormat("EEEE,").format(DateTime.now());
     String dateMonth = DateFormat("d MMMM").format(DateTime.now());
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 10,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 30,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(week),
-                    Text(
-                      dateMonth,
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                const Icon(Icons.notification_add_outlined)
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            FlipCard(
-              direction: FlipDirection.HORIZONTAL,
-              speed: 1000,
-              front: _frontSideTopCard(),
-              back: _backSideTopCard(),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: _incomeCard(),
-                ),
-                const Gap(10),
-                Expanded(
-                  child: _expenseCard(),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            //  _budgetForDayCard(),
-            const Gap(20),
-            AppFont().S(
-              fontSize: 18,
-              text: 'Last Transactions',
-              color: Color.fromARGB(255, 101, 101, 101),
-              fontWeight: FontWeight.bold,
-            ),
-            const Gap(10),
-            todaysTransact(),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 10,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 40,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppFont()
+                      .S(text: week, fontSize: 14, fontWeight: FontWeight.w500),
+                  AppFont().S(
+                      text: dateMonth,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+
+                  // Text(week),
+                  // Text(
+                  //   dateMonth,
+                  //   style: const TextStyle(
+                  //       fontSize: 18, fontWeight: FontWeight.bold),
+                  // ),
+                ],
+              ),
+              const Icon(Icons.notification_add_outlined)
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          FlipCard(
+            direction: FlipDirection.HORIZONTAL,
+            speed: 1000,
+            front: _frontSideTopCard(),
+            back: _backSideTopCard(),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: _incomeCard(),
+              ),
+              const Gap(10),
+              Expanded(
+                child: _expenseCard(),
+              ),
+            ],
+          ),
+          // const SizedBox(
+          //   height: 15,
+          // ),
+          //  _budgetForDayCard(),
+          const Gap(20),
+          AppFont().S(
+            fontSize: 18,
+            text: 'Last Transactions',
+            color: Color.fromARGB(255, 101, 101, 101),
+            fontWeight: FontWeight.bold,
+          ),
+          const Gap(10),
+          todaysTransact(),
+        ],
       ),
     );
   }
 
-  ListView todaysTransact() {
-    return ListView.builder(
-        padding: EdgeInsets.zero,
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: 5,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Card(
-                elevation: 0,
-                color: Colors.white,
-                child: ListTile(
-                  trailing: const Text('data'),
-                  title: const Text('Shopping'),
-                  subtitle: const Text('Description'),
-                  leading: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: Color(0xFF91E894),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: const Icon(Icons.ac_unit_sharp)),
+  Widget todaysTransact() {
+    return Expanded(
+      child: ListView.builder(
+          padding: EdgeInsets.zero,
+          physics: AlwaysScrollableScrollPhysics(),
+          itemCount: 5,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                Card(
+                  elevation: 0,
+                  color: Colors.white,
+                  child: ListTile(
+                    trailing: const Text('data'),
+                    title: const Text('Shopping'),
+                    subtitle: const Text('Description'),
+                    leading: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: Color(0xFF91E894),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Icon(Icons.ac_unit_sharp)),
+                  ),
                 ),
-              ),
-              const Gap(7)
-            ],
-          );
-        });
+                const Gap(7)
+              ],
+            );
+          }),
+    );
   }
 
   Container _budgetForDayCard() {
@@ -188,18 +194,18 @@ class HomeView extends StatelessWidget {
   Card _expenseCard() {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      elevation: 0,
+      elevation: 6,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         decoration: BoxDecoration(
-            color: const Color(0xFFEBD4EB),
+            color: const Color(0xFFffc5c0),
             borderRadius: BorderRadius.circular(15)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
               radius: 20,
-              backgroundColor: const Color(0xFF836f81),
+              backgroundColor: const Color(0xFFff3623),
               child: Image.asset(
                 AppImages.walletIcon,
                 height: 80,
@@ -211,13 +217,13 @@ class HomeView extends StatelessWidget {
               children: [
                 AppFont().N(
                   text: '1,800',
-                  color: const Color(0xFF836f81),
+                  color: const Color(0xFFff3623),
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
                 AppFont().S(
                   text: StringConst.expense,
-                  color: const Color(0xFF836f81),
+                  color: const Color(0xFFff3623),
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                 ),
@@ -232,11 +238,11 @@ class HomeView extends StatelessWidget {
   Card _incomeCard() {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      elevation: 0,
+      elevation: 6,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         decoration: BoxDecoration(
-            color: const Color(0xFFd9e7e5),
+            color: const Color(0xFFb3dcd1),
             borderRadius: BorderRadius.circular(15)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -299,76 +305,79 @@ class HomeView extends StatelessWidget {
         color: Colors.black,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Row(
-        children: [
-          Expanded(child: PieChartView()),
-          Gap(10),
-          Expanded(
-            flex: 3,
-            child: Row(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          color: Colors.blue,
-                          height: 15,
-                          width: 15,
-                        ),
-                        const Gap(6),
-                        AppFont().S(text: '%45 Shopping', color: Colors.white)
-                      ],
-                    ),
-                    Gap(10),
-                    Row(
-                      children: [
-                        Container(
-                          color: Colors.blue,
-                          height: 15,
-                          width: 15,
-                        ),
-                        const Gap(6),
-                        AppFont().S(text: '%45 Shopping', color: Colors.white)
-                      ],
-                    ),
-                  ],
-                ),
-                Gap(10),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          color: Colors.blue,
-                          height: 15,
-                          width: 15,
-                        ),
-                        const Gap(6),
-                        AppFont().S(text: '%45 Shopping', color: Colors.white)
-                      ],
-                    ),
-                    Gap(10),
-                    Row(
-                      children: [
-                        Container(
-                          color: Colors.blue,
-                          height: 15,
-                          width: 15,
-                        ),
-                        const Gap(6),
-                        AppFont().S(text: '%45 Shopping', color: Colors.white)
-                      ],
-                    ),
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
-      ),
+
+      // child: Row(
+      //   children: [
+      //     Expanded(child: PieChartView()),
+      //     Gap(10),
+      //     Expanded(
+      //       flex: 3,
+      //       child: Row(
+      //         children: [
+      //           Column(
+      //             mainAxisAlignment: MainAxisAlignment.center,
+      //             children: [
+      //               Row(
+      //                 children: [
+      //                   Container(
+      //                     color: Colors.blue,
+      //                     height: 15,
+      //                     width: 15,
+      //                   ),
+      //                   const Gap(6),
+      //                   AppFont().S(text: '%45 Shopping', color: Colors.white)
+      //                 ],
+      //               ),
+      //               Gap(10),
+      //               Row(
+      //                 children: [
+      //                   Container(
+      //                     color: Colors.blue,
+      //                     height: 15,
+      //                     width: 15,
+      //                   ),
+      //                   const Gap(6),
+      //                   AppFont().S(text: '%45 Shopping', color: Colors.white)
+      //                 ],
+      //               ),
+      //             ],
+      //           ),
+      //           Gap(10),
+      //           Column(
+      //             mainAxisAlignment: MainAxisAlignment.center,
+      //             children: [
+      //               Row(
+      //                 children: [
+      //                   Container(
+      //                     color: Colors.blue,
+      //                     height: 15,
+      //                     width: 15,
+      //                   ),
+      //                   const Gap(6),
+      //                   AppFont().S(text: '%45 Shopping', color: Colors.white)
+      //                 ],
+      //               ),
+      //               Gap(10),
+      //               Row(
+      //                 children: [
+      //                   Container(
+      //                     color: Colors.blue,
+      //                     height: 15,
+      //                     width: 15,
+      //                   ),
+      //                   const Gap(6),
+      //                   AppFont().S(text: '%45 Shopping', color: Colors.white)
+      //                 ],
+      //               ),
+      //             ],
+      //           )
+      //         ],
+      //       ),
+      //     )
+      //   ],
+      // ),
+
+      child: Column(children: []),
     );
   }
 

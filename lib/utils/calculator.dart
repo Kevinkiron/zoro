@@ -24,21 +24,19 @@ class CalculatorView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 const Gap(10),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    alignment: Alignment.bottomRight,
-                    width: screenSize.width,
-                    child: AppFont().N(
-                        text: ('${state.number1}${state.operand}${state.number2}')
-                                .isEmpty
-                            ? '0'
-                            : '${state.number1}${state.operand}${state.number2}',
-                        fontSize: 40,
-                        align: TextAlign.end,
-                        fontWeight: FontWeight.bold,
-                        overflow: TextOverflow.visible),
-                  ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  alignment: Alignment.bottomRight,
+                  width: screenSize.width,
+                  child: AppFont().N(
+                      text: ('${state.number1}${state.operand}${state.number2}')
+                              .isEmpty
+                          ? '0'
+                          : '${state.number1}${state.operand}${state.number2}',
+                      fontSize: 40,
+                      align: TextAlign.end,
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.visible),
                 ),
                 const Gap(20),
                 Wrap(

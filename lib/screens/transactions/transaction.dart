@@ -28,11 +28,13 @@ class Transaction extends StatelessWidget {
                   enableFeedback: false,
                   dividerColor: Colors.transparent,
                   indicator: BoxDecoration(
-                      color: Color.fromARGB(255, 123, 212, 197),
+                      color: Color(0xFF42887c),
                       borderRadius: BorderRadius.all(Radius.circular(30))),
                   tabs: [
                     Tab(
-                      child: Text('Expenses'),
+                      child: Text(
+                        'Expenses',
+                      ),
                     ),
                     Tab(
                       child: Text('Incomes'),

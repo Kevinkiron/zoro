@@ -1,5 +1,4 @@
 import 'package:expense_tracker/screens/home/home.dart';
-import 'package:expense_tracker/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -24,7 +23,7 @@ class Splash extends StatelessWidget {
           body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Lottie.asset('assets/images/splash2.json'),
+          Lottie.asset('assets/images/spla.json'),
         ],
       ));
     });
