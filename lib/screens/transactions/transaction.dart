@@ -32,7 +32,6 @@ class Transaction extends StatelessWidget {
                   indicator: const BoxDecoration(
                       gradient: LinearGradient(colors: [
                         Color(0xFF42887c),
-                        //  Color.fromARGB(255, 116, 164, 151),
                         Color(0xFF42887c),
                       ]),
                       borderRadius: BorderRadius.all(Radius.circular(30))),

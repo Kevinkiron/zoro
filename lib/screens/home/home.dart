@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 import '../../utils/bottom.dart';
 import '../../utils/constants.dart';
 import '../../utils/floating_button.dart';
+import '../../utils/pie_chart.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -302,11 +303,82 @@ class HomeView extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           fit: BoxFit.contain,
         ),
-        color: Colors.black,
+        color: const Color(0xFF42887c),
         borderRadius: BorderRadius.circular(20),
       ),
 
-      child: Column(children: []),
+      child: Row(
+        children: [
+          Expanded(child: PieChartView()),
+          Gap(10),
+          Expanded(
+            flex: 3,
+            child: Row(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          color: Colors.blue,
+                          height: 15,
+                          width: 15,
+                        ),
+                        const Gap(6),
+                        AppFont().S(text: '%45 Shopping', color: Colors.white)
+                      ],
+                    ),
+                    Gap(10),
+                    Row(
+                      children: [
+                        Container(
+                          color: Colors.blue,
+                          height: 15,
+                          width: 15,
+                        ),
+                        const Gap(6),
+                        AppFont().S(text: '%45 Shopping', color: Colors.white)
+                      ],
+                    ),
+                  ],
+                ),
+                Gap(10),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          color: Colors.blue,
+                          height: 15,
+                          width: 15,
+                        ),
+                        const Gap(6),
+                        AppFont().S(text: '%45 Shopping', color: Colors.white)
+                      ],
+                    ),
+                    Gap(10),
+                    Row(
+                      children: [
+                        Container(
+                          color: Colors.blue,
+                          height: 15,
+                          width: 15,
+                        ),
+                        const Gap(6),
+                        AppFont().S(text: '%45 Shopping', color: Colors.white)
+                      ],
+                    ),
+                  ],
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+
+      //   child: Column(children: []),
     );
   }
 
