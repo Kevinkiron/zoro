@@ -15,3 +15,10 @@ class AddAmount extends AcoountEvent {
   @override
   List<Object> get props => [note, amount];
 }
+
+class ReadAccount extends AcoountEvent {
+  const ReadAccount();
+
+  @override
+  List<Object> get props => [];
+}

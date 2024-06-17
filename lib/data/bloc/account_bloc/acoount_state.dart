@@ -1,8 +1,16 @@
 part of 'acoount_bloc.dart';
 
-class AcoountState extends Equatable {
-  const AcoountState();
+final class AcoountState extends Equatable {
+  final List<Account> accounts;
+  const AcoountState({
+    this.accounts = const <Account>[],
+  });
+  AcoountState copyWith({
+    List<Account>? accounts,
+  }) {
+    return AcoountState(accounts: accounts ?? this.accounts);
+  }
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [accounts];
 }

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:isar/isar.dart';
@@ -10,13 +11,8 @@ class IsarService {
   static late Isar isar;
   static Future<void> initialize() async {
     final dir = await getApplicationDocumentsDirectory();
-    final dbFiles = Directory(dir.path).listSync();
-    for (var file in dbFiles) {
-      if (file is File && file.path.contains('isar')) {
-        await file.delete();
-      }
-    }
-    isar = await Isar.open([AccountSchema, ExpenseSchema], directory: dir.path);
+
+    isar = await Isar.open([AccountSchema], directory: dir.path);
   }
   //  Future<void> saveFirstDate() async {
   //   final exitsSetting = await i
@@ -33,9 +29,11 @@ class IsarService {
     await readAmount();
   }
 
-  Future<void> readAmount() async {
-    List<Account> fetchAmount = await isar.accounts.where().findAll();
-    currentAccount.clear();
-    currentAccount.add(fetchAmount);
+  Future<List<Account>> readAmount() async {
+    final accounts = await isar.accounts.where().findAll();
+
+    // currentAccount.clear();
+    // currentAccount.add(fetchAmount);
+    return accounts;
   }
 }

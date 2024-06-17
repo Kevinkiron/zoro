@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:expense_tracker/data/bloc/home_bloc/home_bloc.dart';
 import 'package:expense_tracker/utils/app_font_styles.dart';
 import 'package:expense_tracker/utils/string_const.dart';
@@ -8,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 
+import '../../data/bloc/account_bloc/acoount_bloc.dart';
 import '../../utils/bottom.dart';
 import '../../utils/constants.dart';
 import '../../utils/floating_button.dart';
@@ -39,89 +42,96 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     String week = DateFormat("EEEE,").format(DateTime.now());
     String dateMonth = DateFormat("d MMMM").format(DateTime.now());
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 10,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 40,
+    return BlocBuilder<AcoountBloc, AcoountState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 10,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              const SizedBox(
+                height: 40,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppFont()
-                      .S(text: week, fontSize: 14, fontWeight: FontWeight.w500),
-                  AppFont().S(
-                      text: dateMonth,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppFont().S(
+                          text: week,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500),
+                      AppFont().S(
+                          text: dateMonth,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
 
-                  // Text(week),
-                  // Text(
-                  //   dateMonth,
-                  //   style: const TextStyle(
-                  //       fontSize: 18, fontWeight: FontWeight.bold),
-                  // ),
+                      // Text(week),
+                      // Text(
+                      //   dateMonth,
+                      //   style: const TextStyle(
+                      //       fontSize: 18, fontWeight: FontWeight.bold),
+                      // ),
+                    ],
+                  ),
+                  const Icon(Icons.notification_add_outlined)
                 ],
               ),
-              const Icon(Icons.notification_add_outlined)
-            ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          FlipCard(
-            direction: FlipDirection.HORIZONTAL,
-            speed: 1000,
-            front: _frontSideTopCard(),
-            back: _backSideTopCard(),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: _incomeCard(),
+              const SizedBox(
+                height: 10,
+              ),
+              FlipCard(
+                direction: FlipDirection.HORIZONTAL,
+                speed: 1000,
+                front: _frontSideTopCard(),
+                back: _backSideTopCard(),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: _incomeCard(),
+                  ),
+                  const Gap(10),
+                  Expanded(
+                    child: _expenseCard(),
+                  ),
+                ],
+              ),
+              // const SizedBox(
+              //   height: 15,
+              // ),
+              //  _budgetForDayCard(),
+              const Gap(20),
+              AppFont().S(
+                fontSize: 18,
+                text: 'Last Transactions',
+                color: Color.fromARGB(255, 101, 101, 101),
+                fontWeight: FontWeight.bold,
               ),
               const Gap(10),
-              Expanded(
-                child: _expenseCard(),
-              ),
+              todaysTransact(state),
             ],
           ),
-          // const SizedBox(
-          //   height: 15,
-          // ),
-          //  _budgetForDayCard(),
-          const Gap(20),
-          AppFont().S(
-            fontSize: 18,
-            text: 'Last Transactions',
-            color: Color.fromARGB(255, 101, 101, 101),
-            fontWeight: FontWeight.bold,
-          ),
-          const Gap(10),
-          todaysTransact(),
-        ],
-      ),
+        );
+      },
     );
   }
 
-  Widget todaysTransact() {
+  Widget todaysTransact(AcoountState state) {
+    log(state.accounts[0].amount.toString());
     return Expanded(
       child: ListView.builder(
           padding: EdgeInsets.zero,
           physics: AlwaysScrollableScrollPhysics(),
-          itemCount: 5,
+          itemCount: state.accounts.length,
           shrinkWrap: true,
           itemBuilder: (context, index) {
             return Column(
@@ -130,7 +140,8 @@ class HomeView extends StatelessWidget {
                   elevation: 0,
                   color: Colors.white,
                   child: ListTile(
-                    trailing: const Text('data'),
+                    trailing: Text(
+                        state.accounts.firstOrNull?.amount.toString() ?? ''),
                     title: const Text('Shopping'),
                     subtitle: const Text('Description'),
                     leading: Container(

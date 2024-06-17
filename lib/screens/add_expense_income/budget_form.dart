@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:expense_tracker/data/bloc/account_bloc/acoount_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -138,7 +140,9 @@ Widget _incomeTab(BuildContext context) {
                       final amount = double.tryParse(
                           context.read<AcoountBloc>().amount.text);
                       context.read<AcoountBloc>().add(AddAmount(
-                          context.read<AcoountBloc>().note.text, amount ?? 0));
+                            context.read<AcoountBloc>().note.text,
+                            amount ?? 0,
+                          ));
                     },
                     child: Container(
                       height: 40,

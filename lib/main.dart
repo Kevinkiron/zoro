@@ -5,10 +5,6 @@ import 'package:expense_tracker/data/isar_service.dart';
 import 'package:expense_tracker/screens/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:isar/isar.dart';
-
-import 'data/models/account.dart';
-import 'data/models/expense.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
