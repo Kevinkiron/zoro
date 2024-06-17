@@ -1,10 +1,19 @@
+import 'package:expense_tracker/data/bloc/account_bloc/acoount_bloc.dart';
 import 'package:expense_tracker/data/bloc/home_bloc/home_bloc.dart';
 import 'package:expense_tracker/data/bloc/splash_bloc/splash_bloc.dart';
+import 'package:expense_tracker/data/isar_service.dart';
 import 'package:expense_tracker/screens/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:isar/isar.dart';
 
-void main() {
+import 'data/models/account.dart';
+import 'data/models/expense.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await IsarService.initialize();
+  // await IsarService().saveFirstDate();
   runApp(const MyApp());
 }
 
@@ -20,6 +29,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SplashBloc(),
+        ),
+        BlocProvider(
+          create: (context) => AcoountBloc(IsarService()),
         ),
       ],
       child: MaterialApp(
