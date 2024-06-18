@@ -23,8 +23,10 @@ class FloatButton extends StatelessWidget {
           // badgeLabel: 'Expense',
           // badgeColor: Colors.black,
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AddExpense()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AddExpenseValue()));
           },
           icon: Icons.account_balance_wallet,
         ),

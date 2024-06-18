@@ -1,11 +1,10 @@
-import 'dart:developer';
-
-import 'package:expense_tracker/data/bloc/account_bloc/acoount_bloc.dart';
+import 'package:expense_tracker/data/bloc/account_bloc/account_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
 import '../../utils/app_font_styles.dart';
+import '../home/home.dart';
 
 class AddBudget extends StatelessWidget {
   const AddBudget({super.key});
@@ -31,7 +30,7 @@ class AddBudget extends StatelessWidget {
 }
 
 Widget _incomeTab(BuildContext context) {
-  return BlocBuilder<AcoountBloc, AcoountState>(
+  return BlocBuilder<AccountBloc, AccountState>(
     builder: (context, state) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -54,7 +53,7 @@ Widget _incomeTab(BuildContext context) {
                     fontWeight: FontWeight.bold),
                 const Gap(10),
                 TextField(
-                  controller: context.read<AcoountBloc>().amount,
+                  controller: context.read<AccountBloc>().amount,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.grey.shade300,
@@ -75,7 +74,7 @@ Widget _incomeTab(BuildContext context) {
                     fontWeight: FontWeight.bold),
                 const Gap(10),
                 TextField(
-                  controller: context.read<AcoountBloc>().note,
+                  controller: context.read<AccountBloc>().note,
                   maxLines: 4,
                   decoration: InputDecoration(
                     filled: true,
@@ -138,11 +137,15 @@ Widget _incomeTab(BuildContext context) {
                       child: InkWell(
                     onTap: () {
                       final amount = double.tryParse(
-                          context.read<AcoountBloc>().amount.text);
-                      context.read<AcoountBloc>().add(AddAmount(
-                            context.read<AcoountBloc>().note.text,
+                          context.read<AccountBloc>().amount.text);
+                      context.read<AccountBloc>().add(AddAmount(
+                            context.read<AccountBloc>().note.text,
                             amount ?? 0,
                           ));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Home()));
                     },
                     child: Container(
                       height: 40,

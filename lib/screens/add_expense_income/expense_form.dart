@@ -1,9 +1,16 @@
 import 'package:expense_tracker/utils/app_font_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-class AddExpense extends StatelessWidget {
-  const AddExpense({super.key});
+import '../../data/bloc/account_bloc/account_bloc.dart';
+import '../home/home.dart';
+import 'widgets/bottom_sheet.dart';
+import 'widgets/custom_textfield.dart';
+
+class AddExpenseValue extends StatelessWidget {
+  const AddExpenseValue({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +25,18 @@ class AddExpense extends StatelessWidget {
       ),
       body: Column(
         children: [
-          _expenseTab(context),
+          BlocBuilder<AccountBloc, AccountState>(
+            builder: (context, state) {
+              return _expenseTab(context, state, context.read<AccountBloc>());
+            },
+          ),
         ],
       ),
     );
   }
 
-  Padding _expenseTab(BuildContext context) {
+  Padding _expenseTab(
+      BuildContext context, AccountState state, AccountBloc bloc) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Column(
@@ -37,7 +49,7 @@ class AddExpense extends StatelessWidget {
               Row(
                 children: [
                   _accountSelection(context),
-                  Gap(10),
+                  const Gap(10),
                   _categorySelection(context),
                 ],
               ),
@@ -47,38 +59,20 @@ class AddExpense extends StatelessWidget {
                   fontSize: 14,
                   fontWeight: FontWeight.bold),
               const Gap(10),
-              TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey.shade300,
-                  hintText: 'Expense',
-                  hintStyle: TextStyle(
-                    fontStyle: AppFont().S(text: '').style?.fontStyle,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                  ),
-                  border: const OutlineInputBorder(borderSide: BorderSide.none),
-                ),
+              CustomTextfield(
+                controller: bloc.expenseAmount,
+                hintText: 'Expense',
               ),
-              Gap(20),
+              const Gap(20),
               AppFont().S(
                   text: 'ADD NOTE', fontSize: 14, fontWeight: FontWeight.bold),
               const Gap(10),
-              TextField(
+              CustomTextfield(
+                controller: bloc.expenseNote,
                 maxLines: 4,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey.shade300,
-                  hintText: 'notes',
-                  hintStyle: TextStyle(
-                    fontStyle: AppFont().S(text: '').style?.fontStyle,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                  ),
-                  border: const OutlineInputBorder(borderSide: BorderSide.none),
-                ),
+                hintText: 'notes',
               ),
-              Gap(40),
+              const Gap(40),
             ],
           ),
           Container(
@@ -88,7 +82,9 @@ class AddExpense extends StatelessWidget {
               children: [
                 Expanded(
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
                     child: Container(
                       height: 40,
                       decoration: BoxDecoration(
@@ -122,7 +118,15 @@ class AddExpense extends StatelessWidget {
                 const Gap(20),
                 Expanded(
                     child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    bloc.add(AddExpense(
+                      bloc.expenseNote.text,
+                      double.tryParse(bloc.expenseAmount.text) ?? 0,
+                    ));
+
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => const Home()));
+                  },
                   child: Container(
                     height: 40,
                     decoration: BoxDecoration(
@@ -144,12 +148,13 @@ class AddExpense extends StatelessWidget {
                       color: const Color(0xFF336e64),
                     ),
                     child: Center(
-                        child: AppFont().S(
-                      text: 'SAVE',
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    )),
+                      child: AppFont().S(
+                        text: 'SAVE',
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 )),
               ],
@@ -160,16 +165,41 @@ class AddExpense extends StatelessWidget {
     );
   }
 
-  Expanded _accountSelection(BuildContext context) {
+  Widget _accountSelection(BuildContext context) {
     return Expanded(
         child: GestureDetector(
       onTap: () {
         showModalBottomSheet(
+            backgroundColor: Colors.white,
             context: context,
             builder: (BuildContext context) {
               return Container(
                 width: double.infinity,
-                height: 300,
+                height: 350,
+                child: Column(
+                  children: [
+                    const Gap(20),
+                    AppFont().S(
+                        text: 'Select an account',
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                    const Gap(20),
+                    Expanded(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 8,
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return _listViewOfAccount();
+                          }),
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          addNewAccount(context);
+                        },
+                        child: const Text('data')),
+                  ],
+                ),
               );
             });
       },
@@ -223,6 +253,93 @@ class AddExpense extends StatelessWidget {
         ),
       ),
     ));
+  }
+
+  Future<String?> addNewAccount(BuildContext context) {
+    return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => CustomAlertDialogAddAccount());
+  }
+
+  Future<String?> addNewExpense(BuildContext context) {
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        elevation: 18,
+        scrollable: true,
+        title: const Text('Add New Account'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(child: Text('Amount')),
+                Gap(10),
+                Expanded(
+                  flex: 3,
+                  child: CustomTextfield(
+                    hintText: 'Amount',
+                  ),
+                ),
+              ],
+            ),
+            Gap(20),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(child: Text('Name')),
+                Gap(10),
+                Expanded(
+                  flex: 3,
+                  child: CustomTextfield(
+                    hintText: 'Account Name',
+                  ),
+                ),
+              ],
+            ),
+            Icon(Icons.abc),
+          ],
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {},
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Column _listViewOfAccount() {
+    return Column(
+      children: [
+        Container(
+          color: Colors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          height: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.abc),
+                  AppFont().S(text: 'cds'),
+                ],
+              ),
+              AppFont().N(text: '3000')
+            ],
+          ),
+        ),
+        const Gap(10)
+      ],
+    );
   }
 
   Expanded _categorySelection(BuildContext context) {

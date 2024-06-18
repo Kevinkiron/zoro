@@ -1,4 +1,4 @@
-import 'package:expense_tracker/data/bloc/account_bloc/acoount_bloc.dart';
+import 'package:expense_tracker/data/bloc/account_bloc/account_bloc.dart';
 import 'package:expense_tracker/data/bloc/home_bloc/home_bloc.dart';
 import 'package:expense_tracker/data/bloc/splash_bloc/splash_bloc.dart';
 import 'package:expense_tracker/data/isar_service.dart';
@@ -27,7 +27,9 @@ class MyApp extends StatelessWidget {
           create: (context) => SplashBloc(),
         ),
         BlocProvider(
-          create: (context) => AcoountBloc(IsarService()),
+          create: (context) => AccountBloc(IsarService())
+            ..add(const ReadAccount())
+            ..add(const ReadExpense()),
         ),
       ],
       child: MaterialApp(

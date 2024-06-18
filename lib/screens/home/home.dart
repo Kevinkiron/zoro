@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 
-import '../../data/bloc/account_bloc/acoount_bloc.dart';
+import '../../data/bloc/account_bloc/account_bloc.dart';
 import '../../utils/bottom.dart';
 import '../../utils/constants.dart';
 import '../../utils/floating_button.dart';
@@ -42,7 +42,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     String week = DateFormat("EEEE,").format(DateTime.now());
     String dateMonth = DateFormat("d MMMM").format(DateTime.now());
-    return BlocBuilder<AcoountBloc, AcoountState>(
+    return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(
@@ -113,7 +113,7 @@ class HomeView extends StatelessWidget {
               AppFont().S(
                 fontSize: 18,
                 text: 'Last Transactions',
-                color: Color.fromARGB(255, 101, 101, 101),
+                color: const Color.fromARGB(255, 101, 101, 101),
                 fontWeight: FontWeight.bold,
               ),
               const Gap(10),
@@ -125,38 +125,75 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget todaysTransact(AcoountState state) {
-    log(state.accounts[0].amount.toString());
+  Widget todaysTransact(AccountState state) {
+    log(state.expense.length.toString());
     return Expanded(
       child: ListView.builder(
           padding: EdgeInsets.zero,
-          physics: AlwaysScrollableScrollPhysics(),
-          itemCount: state.accounts.length,
+          physics: const AlwaysScrollableScrollPhysics(),
+          itemCount: state.expense.length,
           shrinkWrap: true,
           itemBuilder: (context, index) {
             return Column(
               children: [
-                Card(
-                  elevation: 0,
-                  color: Colors.white,
-                  child: ListTile(
-                    trailing: Text(
-                        state.accounts.firstOrNull?.amount.toString() ?? ''),
-                    title: const Text('Shopping'),
-                    subtitle: const Text('Description'),
-                    leading: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            color: Color(0xFF91E894),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: const Icon(Icons.ac_unit_sharp)),
-                  ),
+                InkWell(
+                  onTap: () {
+                    showResults(context, index, state);
+                  },
+                  child: listViewBuild(state, index),
                 ),
                 const Gap(7)
               ],
             );
           }),
+    );
+  }
+
+  showResults(
+    context,
+    index,
+    AccountState state,
+  ) {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(state.expense[index].amount.toString()),
+        content: Text(state.expense[index].note),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              context.read<AccountBloc>().add(
+                    DeleteExpense(state.expense[index].id),
+                  );
+              Navigator.pop(context, 'OK');
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Card listViewBuild(AccountState state, int index) {
+    return Card(
+      elevation: 0,
+      color: Colors.white,
+      child: ListTile(
+        trailing: Text(state.expense[index].amount.toString()),
+        title: const Text('Shopping'),
+        subtitle: Text(state.expense[index].note),
+        leading: Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+                color: const Color(0xFF91E894),
+                borderRadius: BorderRadius.circular(10)),
+            child: const Icon(Icons.ac_unit_sharp)),
+      ),
     );
   }
 
@@ -166,7 +203,7 @@ class HomeView extends StatelessWidget {
       height: 90,
       width: 400,
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 91, 184, 168),
+        color: const Color.fromARGB(255, 91, 184, 168),
         borderRadius: BorderRadius.circular(15),
       ),
       child: Row(
@@ -320,8 +357,8 @@ class HomeView extends StatelessWidget {
 
       child: Row(
         children: [
-          Expanded(child: PieChartView()),
-          Gap(10),
+          const Expanded(child: PieChartView()),
+          const Gap(10),
           Expanded(
             flex: 3,
             child: Row(
@@ -340,7 +377,7 @@ class HomeView extends StatelessWidget {
                         AppFont().S(text: '%45 Shopping', color: Colors.white)
                       ],
                     ),
-                    Gap(10),
+                    const Gap(10),
                     Row(
                       children: [
                         Container(
@@ -354,7 +391,7 @@ class HomeView extends StatelessWidget {
                     ),
                   ],
                 ),
-                Gap(10),
+                const Gap(10),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -369,7 +406,7 @@ class HomeView extends StatelessWidget {
                         AppFont().S(text: '%45 Shopping', color: Colors.white)
                       ],
                     ),
-                    Gap(10),
+                    const Gap(10),
                     Row(
                       children: [
                         Container(

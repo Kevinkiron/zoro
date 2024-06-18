@@ -13,9 +13,14 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(const HomeState()) {
     on<NavigateIndex>(_bottomChange);
+    on<ResetHomeState>(_onResetLoginState);
   }
 
   _bottomChange(NavigateIndex event, Emitter<HomeState> emit) {
     emit(state.copWith(tabIndex: event.selectIndex));
+  }
+
+  void _onResetLoginState(ResetHomeState event, Emitter<HomeState> emit) {
+    emit(const HomeState());
   }
 }

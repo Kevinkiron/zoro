@@ -16,3 +16,10 @@ class NavigateIndex extends HomeEvent {
         selectIndex,
       ];
 }
+
+class ResetHomeState extends HomeEvent {
+  const ResetHomeState();
+
+  @override
+  List<Object> get props => [];
+}

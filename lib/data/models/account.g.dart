@@ -17,13 +17,18 @@ const AccountSchema = CollectionSchema(
   name: r'Account',
   id: -6646797162501847804,
   properties: {
-    r'amount': PropertySchema(
+    r'addAc': PropertySchema(
       id: 0,
+      name: r'addAc',
+      type: IsarType.stringList,
+    ),
+    r'amount': PropertySchema(
+      id: 1,
       name: r'amount',
       type: IsarType.double,
     ),
     r'note': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'note',
       type: IsarType.string,
     )
@@ -48,6 +53,13 @@ int _accountEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  bytesCount += 3 + object.addAc.length * 3;
+  {
+    for (var i = 0; i < object.addAc.length; i++) {
+      final value = object.addAc[i];
+      bytesCount += value.length * 3;
+    }
+  }
   bytesCount += 3 + object.note.length * 3;
   return bytesCount;
 }
@@ -58,8 +70,9 @@ void _accountSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeDouble(offsets[0], object.amount);
-  writer.writeString(offsets[1], object.note);
+  writer.writeStringList(offsets[0], object.addAc);
+  writer.writeDouble(offsets[1], object.amount);
+  writer.writeString(offsets[2], object.note);
 }
 
 Account _accountDeserialize(
@@ -69,9 +82,10 @@ Account _accountDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Account();
-  object.amount = reader.readDouble(offsets[0]);
+  object.addAc = reader.readStringList(offsets[0]) ?? [];
+  object.amount = reader.readDouble(offsets[1]);
   object.id = id;
-  object.note = reader.readString(offsets[1]);
+  object.note = reader.readString(offsets[2]);
   return object;
 }
 
@@ -83,8 +97,10 @@ P _accountDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readStringList(offset) ?? []) as P;
     case 1:
+      return (reader.readDouble(offset)) as P;
+    case 2:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -180,6 +196,221 @@ extension AccountQueryWhere on QueryBuilder<Account, Account, QWhereClause> {
 
 extension AccountQueryFilter
     on QueryBuilder<Account, Account, QFilterCondition> {
+  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'addAc',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'addAc',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'addAc',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'addAc',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'addAc',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'addAc',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'addAc',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'addAc',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'addAc',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition>
+      addAcElementIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'addAc',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> addAcLengthEqualTo(
+      int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'addAc',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> addAcIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'addAc',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> addAcIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'addAc',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> addAcLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'addAc',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> addAcLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'addAc',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> addAcLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'addAc',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
   QueryBuilder<Account, Account, QAfterFilterCondition> amountEqualTo(
     double value, {
     double epsilon = Query.epsilon,
@@ -498,6 +729,12 @@ extension AccountQuerySortThenBy
 
 extension AccountQueryWhereDistinct
     on QueryBuilder<Account, Account, QDistinct> {
+  QueryBuilder<Account, Account, QDistinct> distinctByAddAc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'addAc');
+    });
+  }
+
   QueryBuilder<Account, Account, QDistinct> distinctByAmount() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'amount');
@@ -517,6 +754,12 @@ extension AccountQueryProperty
   QueryBuilder<Account, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
+    });
+  }
+
+  QueryBuilder<Account, List<String>, QQueryOperations> addAcProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'addAc');
     });
   }
 
