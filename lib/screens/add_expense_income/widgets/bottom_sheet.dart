@@ -1,25 +1,22 @@
 import 'dart:developer';
 
+import 'package:expense_tracker/screens/add_expense_income/bloc/budget_form_bloc.dart';
 import 'package:expense_tracker/screens/add_expense_income/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-import '../../../data/bloc/account_bloc/account_bloc.dart';
 import '../../../utils/app_font_styles.dart';
 
+// ignore: must_be_immutable
 class CustomAlertDialogAddAccount extends StatelessWidget {
-  CustomAlertDialogAddAccount(
-      {super.key, this.amountController, this.accountNameController});
-  TextEditingController? amountController;
-  TextEditingController? accountNameController;
+  const CustomAlertDialogAddAccount({
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AccountBloc, AccountState>(
+    return BlocBuilder<BudgetFormBloc, BudgetFormState>(
       builder: (context, state) {
-        log(
-          state.images.length.toString(),
-        );
         return AlertDialog(
           elevation: 18,
           scrollable: true,
@@ -36,7 +33,8 @@ class CustomAlertDialogAddAccount extends StatelessWidget {
                   Expanded(
                     flex: 3,
                     child: CustomTextfield(
-                      controller: amountController,
+                      controller:
+                          context.read<BudgetFormBloc>().amountController,
                       hintText: 'Amount',
                     ),
                   ),
@@ -52,23 +50,23 @@ class CustomAlertDialogAddAccount extends StatelessWidget {
                   Expanded(
                     flex: 3,
                     child: CustomTextfield(
-                      controller: accountNameController,
+                      controller:
+                          context.read<BudgetFormBloc>().accountNameController,
                       hintText: 'Account Name',
                     ),
                   ),
                 ],
               ),
-              Gap(20),
+              const Gap(20),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: List.generate(state.images.length, (index) {
                     log(state.images.length.toString());
-                    return _buildImages(state, index);
+                    return _buildImages(state, index, context);
                   }),
                 ),
               ),
-              // const Icon(Icons.abc),
             ],
           ),
           actions: <Widget>[
@@ -77,7 +75,16 @@ class CustomAlertDialogAddAccount extends StatelessWidget {
               child: const Text('Cancel'),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () async {
+                context.read<BudgetFormBloc>().add(AddAccount(
+                      double.parse(
+                        context.read<BudgetFormBloc>().amountController.text,
+                      ),
+                      context.read<BudgetFormBloc>().accountNameController.text,
+                      state.selectedImage,
+                    ));
+                Navigator.pop(context, 'OK');
+              },
               child: const Text('OK'),
             ),
           ],
@@ -86,9 +93,14 @@ class CustomAlertDialogAddAccount extends StatelessWidget {
     );
   }
 
-  Widget _buildImages(AccountState state, int index) {
+  Widget _buildImages(BudgetFormState state, int index, BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        context
+            .read<BudgetFormBloc>()
+            .add(SelectImage(selectedImage: state.images[index]));
+        log(state.images[index].toString(), name: 'dcd');
+      },
       child: Row(
         children: [
           ClipRRect(
@@ -99,7 +111,7 @@ class CustomAlertDialogAddAccount extends StatelessWidget {
                 height: 80,
                 fit: BoxFit.cover,
               )),
-          Gap(10),
+          const Gap(10),
         ],
       ),
     );

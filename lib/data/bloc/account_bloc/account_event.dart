@@ -57,3 +57,14 @@ class DeleteExpense extends AccountEvent {
   @override
   List<Object> get props => [id];
 }
+
+class AddNewAccount extends AccountEvent {
+  final String note;
+  final double amount;
+  final List<String> icons;
+
+  AddNewAccount(this.note, this.amount, this.icons);
+
+  @override
+  List<Object> get props => [note, amount, icons];
+}

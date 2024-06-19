@@ -2,6 +2,7 @@ import 'package:expense_tracker/data/bloc/account_bloc/account_bloc.dart';
 import 'package:expense_tracker/data/bloc/home_bloc/home_bloc.dart';
 import 'package:expense_tracker/data/bloc/splash_bloc/splash_bloc.dart';
 import 'package:expense_tracker/data/isar_service.dart';
+import 'package:expense_tracker/screens/add_expense_income/bloc/budget_form_bloc.dart';
 import 'package:expense_tracker/screens/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SplashBloc(),
+        ),
+        BlocProvider(
+          create: (context) => BudgetFormBloc(),
         ),
         BlocProvider(
           create: (context) => AccountBloc(IsarService())

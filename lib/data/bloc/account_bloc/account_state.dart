@@ -6,19 +6,11 @@ final class AccountState extends Equatable {
   final Status status;
   final List<Account> accounts;
   final List<Expense> expense;
-  final List<String> images;
   final List<AddAccountModel> addAccount;
   const AccountState({
     this.addAccount = const <AddAccountModel>[],
     this.accounts = const <Account>[],
     this.expense = const <Expense>[],
-    this.images = const <String>[
-      'assets/png/car.png',
-      'assets/png/food.png',
-      'assets/png/fuel.png',
-      'assets/png/rent.jpg',
-      'assets/png/shopping.jpg',
-    ],
     this.status = Status.initial,
   });
   AccountState copyWith({

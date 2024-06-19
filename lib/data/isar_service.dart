@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:expense_tracker/data/models/AddAccount_mode.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -19,7 +20,8 @@ class IsarService {
   //   isar = await Isar.open([AccountSchema, ExpenseSchema], directory: dir.path);
   // }
 
-  Future<void> addAccount(String note, double amount, List addAc) async {
+  Future<void> addAccount(
+      String note, double amount, List<AddAccountModel> addAc) async {
     final newAmount = Account()
       ..amount = amount
       ..addAc
@@ -38,9 +40,9 @@ class IsarService {
     await readExpense();
   }
 
-  Future<List<Account>> readAmount() async {l
+  Future<List<Account>> readAmount() async {
     final accounts = await isar.accounts.where().findAll();
-    log('Accounts in Isar: ${accounts.map((a) => 'Note: ${a.note}, Amount: ${a.amount}').join(', ')}');
+    log('Accounts in Isar: ${accounts.map((a) => 'Note: ${a.note}, Amount: ${a.amount},list: ${a.addAc}').join(', ')}');
     // currentAccount.clear();
     // currentAccount.add(fetchAmount);
     return accounts;

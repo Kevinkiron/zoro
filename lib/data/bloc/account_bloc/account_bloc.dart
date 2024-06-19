@@ -27,7 +27,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   }
   void _onAddAccount(AddAmount event, Emitter<AccountState> emit) async {
     try {
-      await isarService.addAccount(event.note, event.amount, event.addAc);
+      await isarService.addAccount(event.note, event.amount, []);
       emit(state.copyWith(status: Status.success));
     } catch (e) {
       emit(state.copyWith(status: Status.failure));
@@ -37,6 +37,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   void _onLoadAccounts(ReadAccount event, Emitter<AccountState> emit) async {
     try {
       var res = await isarService.readAmount();
+      log(res.toString());
       emit(state.copyWith(accounts: res, status: Status.success));
     } catch (e) {
       emit(state.copyWith(status: Status.failure));
@@ -55,6 +56,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   void _onLoadExpense(ReadExpense event, Emitter<AccountState> emit) async {
     try {
       var res = await isarService.readExpense();
+      log(res.toString());
       emit(state.copyWith(
         expense: res,
         status: Status.success,

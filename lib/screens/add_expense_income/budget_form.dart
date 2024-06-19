@@ -5,6 +5,8 @@ import 'package:gap/gap.dart';
 
 import '../../utils/app_font_styles.dart';
 import '../home/home.dart';
+import 'bloc/budget_form_bloc.dart';
+import 'widgets/bottom_sheet.dart';
 
 class AddBudget extends StatelessWidget {
   const AddBudget({super.key});
@@ -22,16 +24,20 @@ class AddBudget extends StatelessWidget {
       ),
       body: Column(
         children: [
-          _incomeTab(context),
+          BlocBuilder<BudgetFormBloc, BudgetFormState>(
+            builder: (context, state) {
+              return _incomeTab(context, state);
+            },
+          ),
         ],
       ),
     );
   }
 }
 
-Widget _incomeTab(BuildContext context) {
+Widget _incomeTab(BuildContext context, BudgetFormState state) {
   return BlocBuilder<AccountBloc, AccountState>(
-    builder: (context, state) {
+    builder: (context, accountState) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Column(
@@ -43,7 +49,7 @@ Widget _incomeTab(BuildContext context) {
                 const Gap(20),
                 Row(
                   children: [
-                    _accountSelection(context),
+                    _accountSelection(context, state),
                   ],
                 ),
                 const Gap(30),
@@ -141,6 +147,7 @@ Widget _incomeTab(BuildContext context) {
                       context.read<AccountBloc>().add(AddAmount(
                             context.read<AccountBloc>().note.text,
                             amount ?? 0,
+                            accountState.accounts,
                           ));
                       Navigator.push(
                           context,
@@ -186,7 +193,7 @@ Widget _incomeTab(BuildContext context) {
   );
 }
 
-Expanded _accountSelection(BuildContext context) {
+Expanded _accountSelection(BuildContext context, BudgetFormState state) {
   return Expanded(
       child: GestureDetector(
     onTap: () {
@@ -196,6 +203,31 @@ Expanded _accountSelection(BuildContext context) {
             return Container(
               width: double.infinity,
               height: 300,
+              child: Column(
+                children: [
+                  const Gap(20),
+                  AppFont().S(
+                      text: 'Select an account',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                  const Gap(20),
+                  Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: state.accountList.length,
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return _listViewOfAccount(index, state);
+                      },
+                    ),
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        addNewAccount(context);
+                      },
+                      child: const Text('data')),
+                ],
+              ),
             );
           });
     },
@@ -222,7 +254,6 @@ Expanded _accountSelection(BuildContext context) {
           colors: [
             Color(0xFF336e64),
             Color(0xFF5da497),
-            // Color(0xFF2c5952),
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -234,13 +265,17 @@ Expanded _accountSelection(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.assured_workload_outlined, color: Colors.white),
+              const Icon(
+                Icons.assured_workload_outlined,
+                color: Colors.white,
+              ),
               const Gap(8),
               AppFont().S(
-                  text: 'Add Account'.toUpperCase(),
-                  color: Colors.white,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold),
+                text: 'Add Account'.toUpperCase(),
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
             ],
           ),
           const Icon(Icons.arrow_drop_down, color: Colors.white),
@@ -248,4 +283,45 @@ Expanded _accountSelection(BuildContext context) {
       ),
     ),
   ));
+}
+
+Column _listViewOfAccount(index, BudgetFormState state) {
+  return Column(
+    children: [
+      Container(
+        color: Colors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        height: 50,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Image.asset(
+                  state.accountList[index].icons,
+                  width: 90,
+                  height: 90,
+                ),
+                AppFont().S(
+                    text: state.accountList[index].name,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ],
+            ),
+            AppFont().N(
+                text: state.accountList[index].amount.toString(),
+                fontSize: 14,
+                fontWeight: FontWeight.bold)
+          ],
+        ),
+      ),
+      const Gap(10)
+    ],
+  );
+}
+
+Future<String?> addNewAccount(BuildContext context) {
+  return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => CustomAlertDialogAddAccount());
 }
