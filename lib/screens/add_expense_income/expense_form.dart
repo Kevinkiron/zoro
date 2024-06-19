@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:expense_tracker/utils/app_font_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -6,6 +8,7 @@ import 'package:gap/gap.dart';
 
 import '../../data/bloc/account_bloc/account_bloc.dart';
 import '../home/home.dart';
+import 'bloc/budget_form_bloc.dart';
 import 'widgets/bottom_sheet.dart';
 import 'widgets/custom_textfield.dart';
 
@@ -23,20 +26,29 @@ class AddExpenseValue extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      body: Column(
-        children: [
-          BlocBuilder<AccountBloc, AccountState>(
-            builder: (context, state) {
-              return _expenseTab(context, state, context.read<AccountBloc>());
-            },
-          ),
-        ],
+      body: BlocBuilder<BudgetFormBloc, BudgetFormState>(
+        builder: (context, state) {
+          return Column(
+            children: [
+              BlocBuilder<AccountBloc, AccountState>(
+                builder: (context, accountState) {
+                  return _expenseTab(
+                      context,
+                      accountState,
+                      context.read<AccountBloc>(),
+                      context.read<BudgetFormBloc>(),
+                      state);
+                },
+              ),
+            ],
+          );
+        },
       ),
     );
   }
 
-  Padding _expenseTab(
-      BuildContext context, AccountState state, AccountBloc bloc) {
+  Padding _expenseTab(BuildContext context, AccountState accountState,
+      AccountBloc bloc, BudgetFormBloc budgetBloc, BudgetFormState state) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Column(
@@ -48,7 +60,7 @@ class AddExpenseValue extends StatelessWidget {
               const Gap(20),
               Row(
                 children: [
-                  _accountSelection(context),
+                  _accountSelection(context, state),
                   const Gap(10),
                   _categorySelection(context),
                 ],
@@ -165,7 +177,7 @@ class AddExpenseValue extends StatelessWidget {
     );
   }
 
-  Widget _accountSelection(BuildContext context) {
+  Widget _accountSelection(BuildContext context, BudgetFormState state) {
     return Expanded(
         child: GestureDetector(
       onTap: () {
@@ -187,10 +199,10 @@ class AddExpenseValue extends StatelessWidget {
                     Expanded(
                       child: ListView.builder(
                           shrinkWrap: true,
-                          itemCount: 8,
+                          itemCount: state.accountList.length,
                           physics: const AlwaysScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-                            return _listViewOfAccount();
+                            return _listViewOfAccount(index, state);
                           }),
                     ),
                     ElevatedButton(
@@ -317,24 +329,44 @@ class AddExpenseValue extends StatelessWidget {
     );
   }
 
-  Column _listViewOfAccount() {
+  Widget _listViewOfAccount(index, BudgetFormState state) {
     return Column(
       children: [
-        Container(
-          color: Colors.white,
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          height: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  const Icon(Icons.abc),
-                  AppFont().S(text: 'cds'),
-                ],
-              ),
-              AppFont().N(text: '3000')
-            ],
+        InkWell(
+          onTap: () {
+            log(state.accountList[index].name.toString(), name: 'sa');
+          },
+          child: Container(
+            color: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            height: 50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(60),
+                      child: Image.asset(
+                        state.accountList[index].icons,
+                        width: 90,
+                        height: 90,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const Gap(15),
+                    AppFont().S(
+                        text: state.accountList[index].name,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                  ],
+                ),
+                AppFont().N(
+                    text: state.accountList[index].amount.toString(),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400)
+              ],
+            ),
           ),
         ),
         const Gap(10)

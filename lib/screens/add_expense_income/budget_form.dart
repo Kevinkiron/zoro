@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:expense_tracker/data/bloc/account_bloc/account_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +8,7 @@ import 'package:gap/gap.dart';
 import '../../utils/app_font_styles.dart';
 import '../home/home.dart';
 import 'bloc/budget_form_bloc.dart';
-import 'widgets/bottom_sheet.dart';
+import 'widgets/alert_dialog_accounts.dart';
 
 class AddBudget extends StatelessWidget {
   const AddBudget({super.key});
@@ -201,8 +203,9 @@ Expanded _accountSelection(BuildContext context, BudgetFormState state) {
           context: context,
           builder: (BuildContext context) {
             return Container(
+              color: Colors.white,
               width: double.infinity,
-              height: 300,
+              height: 350,
               child: Column(
                 children: [
                   const Gap(20),
@@ -278,41 +281,54 @@ Expanded _accountSelection(BuildContext context, BudgetFormState state) {
               ),
             ],
           ),
-          const Icon(Icons.arrow_drop_down, color: Colors.white),
+          const Icon(
+            Icons.arrow_drop_down,
+            color: Colors.white,
+          ),
         ],
       ),
     ),
   ));
 }
 
-Column _listViewOfAccount(index, BudgetFormState state) {
+Widget _listViewOfAccount(index, BudgetFormState state) {
   return Column(
     children: [
-      Container(
-        color: Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        height: 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Image.asset(
-                  state.accountList[index].icons,
-                  width: 90,
-                  height: 90,
-                ),
-                AppFont().S(
-                    text: state.accountList[index].name,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ],
-            ),
-            AppFont().N(
-                text: state.accountList[index].amount.toString(),
-                fontSize: 14,
-                fontWeight: FontWeight.bold)
-          ],
+      InkWell(
+        onTap: () {
+          log(state.accountList[index].name.toString(), name: 'sa');
+        },
+        child: Container(
+          color: Colors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          height: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(60),
+                    child: Image.asset(
+                      state.accountList[index].icons,
+                      width: 90,
+                      height: 90,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const Gap(15),
+                  AppFont().S(
+                      text: state.accountList[index].name,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                ],
+              ),
+              AppFont().N(
+                  text: state.accountList[index].amount.toString(),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400)
+            ],
+          ),
         ),
       ),
       const Gap(10)
