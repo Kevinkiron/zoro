@@ -12,13 +12,13 @@ class FloatButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircularMenu(
       //   backgroundWidget: Icon(Icons.add),
-      toggleButtonColor: Color(0xFF42887c),
+      toggleButtonColor: const Color(0xFF2e15ff),
 
       alignment: Alignment.bottomRight,
 
       items: [
         CircularMenuItem(
-          color: Color(0xFFff3623),
+          color: const Color(0xFF9900e6),
           // enableBadge: true,
           // badgeLabel: 'Expense',
           // badgeColor: Colors.black,
@@ -48,7 +48,7 @@ class FloatButton extends StatelessWidget {
           icon: Icons.account_balance,
           // badgeLabel: 'Expense',
           // badgeColor: Colors.black,
-          color: Color(0xFF5BB0A2),
+          color: Color(0xFF2e15ff),
         ),
       ],
       // onPressed: () {
