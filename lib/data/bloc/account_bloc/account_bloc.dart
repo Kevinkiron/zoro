@@ -74,7 +74,8 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   void _onAddCategoryDetails(
       AddNewCategory event, Emitter<AccountState> emit) async {
     try {
-      emit(state.copyWith(accName: event.categoryName, image: event.icons));
+      emit(state.copyWith(
+          categoryName: event.categoryName, categoryImage: event.icons));
     } catch (e) {
       emit(state.copyWith(status: Status.failure));
     }

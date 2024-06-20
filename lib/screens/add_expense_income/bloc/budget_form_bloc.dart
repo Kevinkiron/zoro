@@ -36,7 +36,7 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
   void _addCategory(AddCategory event, Emitter<BudgetFormState> emit) {
     final newCategory = AddCategoryModel(
       name: event.name,
-      icons: state.selectedImage,
+      icons: state.selectedExpenseIcon,
     );
     emit(state.copyWith(
         categoryModel: List.from(state.categoryModel)..add(newCategory)));

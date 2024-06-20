@@ -282,8 +282,7 @@ class AddExpenseValue extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Wrap(
-              children: List.generate(state.images.length, (index) {
-                log(state.images.length.toString());
+              children: List.generate(state.expenseIcons.length, (index) {
                 return _buildImages(state, index, context);
               }),
             ),

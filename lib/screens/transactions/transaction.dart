@@ -57,7 +57,7 @@ class Transaction extends StatelessWidget {
                   Expanded(
                     child: TabBarView(children: [
                       ListView.builder(
-                        itemCount: 6,
+                        itemCount: state.expense.length,
                         padding: EdgeInsets.only(top: 10),
                         itemBuilder: (BuildContext context, int index) {
                           return Column(
@@ -66,18 +66,19 @@ class Transaction extends StatelessWidget {
                                 elevation: 0,
                                 color: Colors.white,
                                 child: ListTile(
-                                  trailing: const Text('data'),
-                                  title: const Text('Shopping'),
-                                  subtitle: const Text('Description'),
-                                  leading: Container(
-                                      width: 40,
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 145, 232, 148),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: const Icon(Icons.ac_unit_sharp)),
+                                  trailing: Text(
+                                      state.expense[index].amount.toString()),
+                                  title:
+                                      Text(state.expense[index].categoryName),
+                                  subtitle: Text(state.expense[index].note),
+                                  leading: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.asset(
+                                      state.expense[index].image,
+                                      width: 80,
+                                      height: 80,
+                                    ),
+                                  ),
                                 ),
                               ),
                               const Gap(7)

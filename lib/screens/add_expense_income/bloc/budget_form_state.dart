@@ -14,11 +14,8 @@ class BudgetFormState extends Equatable {
     this.selectedImage = '',
     this.selectedExpenseIcon = '',
     this.images = const <String>[
-      'assets/png/car.png',
-      'assets/png/food.png',
-      'assets/png/fuel.png',
-      'assets/png/rent.jpg',
-      'assets/png/shopping.jpg',
+      'assets/png/bank.png',
+      'assets/png/card.jpg',
     ],
     this.expenseIcons = const <String>[
       'assets/png/car.png',
