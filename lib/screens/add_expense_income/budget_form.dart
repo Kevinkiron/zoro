@@ -51,7 +51,8 @@ Widget _incomeTab(BuildContext context, BudgetFormState state) {
                 const Gap(20),
                 Row(
                   children: [
-                    _accountSelection(context, state),
+                    _accountSelection(
+                        context, state, context.read<AccountBloc>()),
                   ],
                 ),
                 const Gap(30),
@@ -149,7 +150,7 @@ Widget _incomeTab(BuildContext context, BudgetFormState state) {
                       context.read<AccountBloc>().add(AddAmount(
                             context.read<AccountBloc>().note.text,
                             amount ?? 0,
-                            accountState.accounts,
+                            accountState.addAccount,
                           ));
                       Navigator.push(
                           context,
@@ -195,7 +196,8 @@ Widget _incomeTab(BuildContext context, BudgetFormState state) {
   );
 }
 
-Expanded _accountSelection(BuildContext context, BudgetFormState state) {
+Expanded _accountSelection(
+    BuildContext context, BudgetFormState state, AccountBloc bloc) {
   return Expanded(
       child: GestureDetector(
     onTap: () {
@@ -220,7 +222,7 @@ Expanded _accountSelection(BuildContext context, BudgetFormState state) {
                       itemCount: state.accountList.length,
                       physics: const AlwaysScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return _listViewOfAccount(index, state);
+                        return _listViewOfAccount(index, state, bloc);
                       },
                     ),
                   ),
@@ -291,12 +293,16 @@ Expanded _accountSelection(BuildContext context, BudgetFormState state) {
   ));
 }
 
-Widget _listViewOfAccount(index, BudgetFormState state) {
+Widget _listViewOfAccount(index, BudgetFormState state, AccountBloc bloc) {
   return Column(
     children: [
       InkWell(
         onTap: () {
           log(state.accountList[index].name.toString(), name: 'sa');
+          bloc.add(AddAccountDetails(
+              accountAmount: state.accountList[index].amount,
+              accountName: state.accountList[index].name,
+              image: state.accountList[index].icons));
         },
         child: Container(
           color: Colors.white,

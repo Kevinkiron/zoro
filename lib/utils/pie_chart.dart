@@ -12,9 +12,9 @@ class PieChartView extends StatelessWidget {
         PieChartData(
           pieTouchData: PieTouchData(),
           sections: [
-            PieChartSectionData(title: 'A', color: Colors.blue),
-            PieChartSectionData(title: 'B'),
-            PieChartSectionData(title: 'C'),
+            PieChartSectionData(title: 'A', color: Colors.blue, value: 20),
+            PieChartSectionData(title: 'B', value: 40),
+            PieChartSectionData(title: 'C', value: 40),
           ],
         ),
       ),

@@ -20,20 +20,26 @@ class IsarService {
   //   isar = await Isar.open([AccountSchema, ExpenseSchema], directory: dir.path);
   // }
 
-  Future<void> addAccount(
-      String note, double amount, List<AddAccountModel> addAc) async {
+  Future<void> addAccount(String note, double amount, double accAmount,
+      String accName, String image) async {
     final newAmount = Account()
       ..amount = amount
-      ..addAc
+      ..accountAmount = accAmount
+      ..accountName = accName
+      ..image = image
       ..note = note;
     await isar.writeTxn(() => isar.accounts.put(newAmount));
     log('Added account with note: $note and amount: $amount');
     await readAmount();
   }
 
-  Future<void> addExpense(String note, double amount) async {
+  Future<void> addExpense(String note, double amount, double categoryAmount,
+      String categoryName, String image) async {
     final newExpense = Expense()
       ..amount = amount
+      ..categoryAmount = categoryAmount
+      ..categoryName = categoryName
+      ..image = image
       ..note = note;
     await isar.writeTxn(() => isar.expenses.put(newExpense));
     log('Added account with note: $note and amount: $amount');
@@ -42,7 +48,7 @@ class IsarService {
 
   Future<List<Account>> readAmount() async {
     final accounts = await isar.accounts.where().findAll();
-    log('Accounts in Isar: ${accounts.map((a) => 'Note: ${a.note}, Amount: ${a.amount},list: ${a.addAc}').join(', ')}');
+    log('Accounts in Isar: ${accounts.map((a) => 'Note: ${a.note}, Amount: ${a.amount},AccMoubt: ${a.accountAmount},AccImage: ${a.image}').join(', ')}');
     // currentAccount.clear();
     // currentAccount.add(fetchAmount);
     return accounts;

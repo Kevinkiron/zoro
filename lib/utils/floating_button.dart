@@ -11,17 +11,11 @@ class FloatButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircularMenu(
-      //   backgroundWidget: Icon(Icons.add),
       toggleButtonColor: const Color(0xFF2e15ff),
-
       alignment: Alignment.bottomRight,
-
       items: [
         CircularMenuItem(
           color: const Color(0xFF9900e6),
-          // enableBadge: true,
-          // badgeLabel: 'Expense',
-          // badgeColor: Colors.black,
           onTap: () {
             Navigator.push(
                 context,
@@ -32,13 +26,13 @@ class FloatButton extends StatelessWidget {
         ),
         CircularMenuItem(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => CalculatorSection()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const CalculatorSection()));
           },
           icon: Icons.calculate_rounded,
-          // badgeLabel: 'Expense',
-          // badgeColor: Colors.black,
-          color: Color(0xFFe7c10b),
+          color: const Color(0xFFe7c10b),
         ),
         CircularMenuItem(
           onTap: () {
@@ -46,21 +40,9 @@ class FloatButton extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const AddBudget()));
           },
           icon: Icons.account_balance,
-          // badgeLabel: 'Expense',
-          // badgeColor: Colors.black,
-          color: Color(0xFF2e15ff),
+          color: const Color(0xFF2e15ff),
         ),
       ],
-      // onPressed: () {
-      //   Navigator.push(context,
-      //       MaterialPageRoute(builder: (context) => const AddExpense()));
-      // },
-      // backgroundColor: const Color(0xFF42887c),
-      // child: const Icon(
-      //   Icons.add,
-      //   size: 30,
-      //   color: Colors.white,
-      // ),
     );
   }
 }

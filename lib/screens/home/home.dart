@@ -26,7 +26,7 @@ class Home extends StatelessWidget {
           bottomNavigationBar: const BottomNavBar(),
           body: state.pages[state.tabIndex],
           floatingActionButton: const FloatButton(),
-          backgroundColor: Colors.white,
+          backgroundColor: const Color(0xFFf0f1ff),
         );
       },
     );
@@ -45,7 +45,7 @@ class HomeView extends StatelessWidget {
     return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: const Color(0xFFf0f1ff),
           body: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 12,
@@ -105,10 +105,6 @@ class HomeView extends StatelessWidget {
                     ),
                   ],
                 ),
-                // const SizedBox(
-                //   height: 15,
-                // ),
-                //  _budgetForDayCard(),
                 const Gap(20),
                 AppFont().S(
                   fontSize: 18,

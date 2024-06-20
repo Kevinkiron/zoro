@@ -17,18 +17,28 @@ const AccountSchema = CollectionSchema(
   name: r'Account',
   id: -6646797162501847804,
   properties: {
-    r'addAc': PropertySchema(
+    r'accountAmount': PropertySchema(
       id: 0,
-      name: r'addAc',
-      type: IsarType.stringList,
+      name: r'accountAmount',
+      type: IsarType.double,
+    ),
+    r'accountName': PropertySchema(
+      id: 1,
+      name: r'accountName',
+      type: IsarType.string,
     ),
     r'amount': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'amount',
       type: IsarType.double,
     ),
+    r'image': PropertySchema(
+      id: 3,
+      name: r'image',
+      type: IsarType.string,
+    ),
     r'note': PropertySchema(
-      id: 2,
+      id: 4,
       name: r'note',
       type: IsarType.string,
     )
@@ -53,13 +63,8 @@ int _accountEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.addAc.length * 3;
-  {
-    for (var i = 0; i < object.addAc.length; i++) {
-      final value = object.addAc[i];
-      bytesCount += value.length * 3;
-    }
-  }
+  bytesCount += 3 + object.accountName.length * 3;
+  bytesCount += 3 + object.image.length * 3;
   bytesCount += 3 + object.note.length * 3;
   return bytesCount;
 }
@@ -70,9 +75,11 @@ void _accountSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeStringList(offsets[0], object.addAc);
-  writer.writeDouble(offsets[1], object.amount);
-  writer.writeString(offsets[2], object.note);
+  writer.writeDouble(offsets[0], object.accountAmount);
+  writer.writeString(offsets[1], object.accountName);
+  writer.writeDouble(offsets[2], object.amount);
+  writer.writeString(offsets[3], object.image);
+  writer.writeString(offsets[4], object.note);
 }
 
 Account _accountDeserialize(
@@ -82,10 +89,12 @@ Account _accountDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Account();
-  object.addAc = reader.readStringList(offsets[0]) ?? [];
-  object.amount = reader.readDouble(offsets[1]);
+  object.accountAmount = reader.readDouble(offsets[0]);
+  object.accountName = reader.readString(offsets[1]);
+  object.amount = reader.readDouble(offsets[2]);
   object.id = id;
-  object.note = reader.readString(offsets[2]);
+  object.image = reader.readString(offsets[3]);
+  object.note = reader.readString(offsets[4]);
   return object;
 }
 
@@ -97,10 +106,14 @@ P _accountDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readStringList(offset) ?? []) as P;
-    case 1:
       return (reader.readDouble(offset)) as P;
+    case 1:
+      return (reader.readString(offset)) as P;
     case 2:
+      return (reader.readDouble(offset)) as P;
+    case 3:
+      return (reader.readString(offset)) as P;
+    case 4:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -196,20 +209,83 @@ extension AccountQueryWhere on QueryBuilder<Account, Account, QWhereClause> {
 
 extension AccountQueryFilter
     on QueryBuilder<Account, Account, QFilterCondition> {
-  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementEqualTo(
+  QueryBuilder<Account, Account, QAfterFilterCondition> accountAmountEqualTo(
+    double value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'accountAmount',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition>
+      accountAmountGreaterThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'accountAmount',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> accountAmountLessThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'accountAmount',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> accountAmountBetween(
+    double lower,
+    double upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'accountAmount',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> accountNameEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'addAc',
+        property: r'accountName',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementGreaterThan(
+  QueryBuilder<Account, Account, QAfterFilterCondition> accountNameGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -217,14 +293,14 @@ extension AccountQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'addAc',
+        property: r'accountName',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementLessThan(
+  QueryBuilder<Account, Account, QAfterFilterCondition> accountNameLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -232,14 +308,14 @@ extension AccountQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'addAc',
+        property: r'accountName',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementBetween(
+  QueryBuilder<Account, Account, QAfterFilterCondition> accountNameBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -248,7 +324,7 @@ extension AccountQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'addAc',
+        property: r'accountName',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -258,156 +334,72 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementStartsWith(
+  QueryBuilder<Account, Account, QAfterFilterCondition> accountNameStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'addAc',
+        property: r'accountName',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementEndsWith(
+  QueryBuilder<Account, Account, QAfterFilterCondition> accountNameEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'addAc',
+        property: r'accountName',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementContains(
+  QueryBuilder<Account, Account, QAfterFilterCondition> accountNameContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'addAc',
+        property: r'accountName',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementMatches(
+  QueryBuilder<Account, Account, QAfterFilterCondition> accountNameMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'addAc',
+        property: r'accountName',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> addAcElementIsEmpty() {
+  QueryBuilder<Account, Account, QAfterFilterCondition> accountNameIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'addAc',
+        property: r'accountName',
         value: '',
       ));
     });
   }
 
   QueryBuilder<Account, Account, QAfterFilterCondition>
-      addAcElementIsNotEmpty() {
+      accountNameIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'addAc',
+        property: r'accountName',
         value: '',
       ));
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> addAcLengthEqualTo(
-      int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'addAc',
-        length,
-        true,
-        length,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> addAcIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'addAc',
-        0,
-        true,
-        0,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> addAcIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'addAc',
-        0,
-        false,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> addAcLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'addAc',
-        0,
-        true,
-        length,
-        include,
-      );
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> addAcLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'addAc',
-        length,
-        include,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> addAcLengthBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'addAc',
-        lower,
-        includeLower,
-        upper,
-        includeUpper,
-      );
     });
   }
 
@@ -521,6 +513,136 @@ extension AccountQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> imageEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'image',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> imageGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'image',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> imageLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'image',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> imageBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'image',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> imageStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'image',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> imageEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'image',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> imageContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'image',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> imageMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'image',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> imageIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'image',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> imageIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'image',
+        value: '',
       ));
     });
   }
@@ -663,6 +785,30 @@ extension AccountQueryLinks
     on QueryBuilder<Account, Account, QFilterCondition> {}
 
 extension AccountQuerySortBy on QueryBuilder<Account, Account, QSortBy> {
+  QueryBuilder<Account, Account, QAfterSortBy> sortByAccountAmount() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'accountAmount', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterSortBy> sortByAccountAmountDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'accountAmount', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterSortBy> sortByAccountName() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'accountName', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterSortBy> sortByAccountNameDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'accountName', Sort.desc);
+    });
+  }
+
   QueryBuilder<Account, Account, QAfterSortBy> sortByAmount() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'amount', Sort.asc);
@@ -672,6 +818,18 @@ extension AccountQuerySortBy on QueryBuilder<Account, Account, QSortBy> {
   QueryBuilder<Account, Account, QAfterSortBy> sortByAmountDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'amount', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterSortBy> sortByImage() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'image', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterSortBy> sortByImageDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'image', Sort.desc);
     });
   }
 
@@ -690,6 +848,30 @@ extension AccountQuerySortBy on QueryBuilder<Account, Account, QSortBy> {
 
 extension AccountQuerySortThenBy
     on QueryBuilder<Account, Account, QSortThenBy> {
+  QueryBuilder<Account, Account, QAfterSortBy> thenByAccountAmount() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'accountAmount', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterSortBy> thenByAccountAmountDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'accountAmount', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterSortBy> thenByAccountName() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'accountName', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterSortBy> thenByAccountNameDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'accountName', Sort.desc);
+    });
+  }
+
   QueryBuilder<Account, Account, QAfterSortBy> thenByAmount() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'amount', Sort.asc);
@@ -714,6 +896,18 @@ extension AccountQuerySortThenBy
     });
   }
 
+  QueryBuilder<Account, Account, QAfterSortBy> thenByImage() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'image', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterSortBy> thenByImageDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'image', Sort.desc);
+    });
+  }
+
   QueryBuilder<Account, Account, QAfterSortBy> thenByNote() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'note', Sort.asc);
@@ -729,15 +923,29 @@ extension AccountQuerySortThenBy
 
 extension AccountQueryWhereDistinct
     on QueryBuilder<Account, Account, QDistinct> {
-  QueryBuilder<Account, Account, QDistinct> distinctByAddAc() {
+  QueryBuilder<Account, Account, QDistinct> distinctByAccountAmount() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'addAc');
+      return query.addDistinctBy(r'accountAmount');
+    });
+  }
+
+  QueryBuilder<Account, Account, QDistinct> distinctByAccountName(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'accountName', caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<Account, Account, QDistinct> distinctByAmount() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'amount');
+    });
+  }
+
+  QueryBuilder<Account, Account, QDistinct> distinctByImage(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'image', caseSensitive: caseSensitive);
     });
   }
 
@@ -757,15 +965,27 @@ extension AccountQueryProperty
     });
   }
 
-  QueryBuilder<Account, List<String>, QQueryOperations> addAcProperty() {
+  QueryBuilder<Account, double, QQueryOperations> accountAmountProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'addAc');
+      return query.addPropertyName(r'accountAmount');
+    });
+  }
+
+  QueryBuilder<Account, String, QQueryOperations> accountNameProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'accountName');
     });
   }
 
   QueryBuilder<Account, double, QQueryOperations> amountProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'amount');
+    });
+  }
+
+  QueryBuilder<Account, String, QQueryOperations> imageProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'image');
     });
   }
 

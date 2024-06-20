@@ -21,13 +21,15 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   AccountBloc(this.isarService) : super(const AccountState()) {
     on<AddAmount>(_onAddAccount);
     on<ReadAccount>(_onLoadAccounts);
+    on<AddAccountDetails>(_onAddAccountDetails);
     on<AddExpense>(_onAddExpense);
     on<ReadExpense>(_onLoadExpense);
     on<DeleteExpense>(_onDeleteExpense);
   }
   void _onAddAccount(AddAmount event, Emitter<AccountState> emit) async {
     try {
-      await isarService.addAccount(event.note, event.amount, []);
+      await isarService.addAccount(
+          event.note, event.amount, state.accAmt, state.accName, state.image);
       emit(state.copyWith(status: Status.success));
     } catch (e) {
       emit(state.copyWith(status: Status.failure));
@@ -44,9 +46,22 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     }
   }
 
+  void _onAddAccountDetails(
+      AddAccountDetails event, Emitter<AccountState> emit) async {
+    try {
+      emit(state.copyWith(
+          accAmt: event.accountAmount,
+          accName: event.accountName,
+          image: event.image));
+    } catch (e) {
+      emit(state.copyWith(status: Status.failure));
+    }
+  }
+
   void _onAddExpense(AddExpense event, Emitter<AccountState> emit) async {
     try {
-      await isarService.addExpense(event.note, event.amount);
+      await isarService.addExpense(event.note, event.amount, state.accAmt,
+          state.accName, state.categoryImage);
       emit(state.copyWith(status: Status.success));
     } catch (e) {
       emit(state.copyWith(status: Status.failure));

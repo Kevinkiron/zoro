@@ -10,7 +10,7 @@ class AccountEvent extends Equatable {
 class AddAmount extends AccountEvent {
   final String note;
   final double amount;
-  final List addAc;
+  final List<AddAccountModel> addAc;
   const AddAmount(this.note, this.amount, this.addAc);
 
   @override
@@ -22,6 +22,20 @@ class ReadAccount extends AccountEvent {
 
   @override
   List<Object> get props => [];
+}
+
+class AddAccountDetails extends AccountEvent {
+  final double accountAmount;
+  final String accountName;
+  final String image;
+  const AddAccountDetails({
+    required this.accountAmount,
+    required this.accountName,
+    required this.image,
+  });
+
+  @override
+  List<Object> get props => [accountAmount, accountName, image];
 }
 
 class AddExpense extends AccountEvent {

@@ -46,8 +46,8 @@ class TopContainerWithBalance extends StatelessWidget {
         gradient: const LinearGradient(
           colors: [
             Color(0xFF2e15ff),
-            Color(0xFF2e15ff),
-            Color(0xFF7474ff),
+            //  Color(0xFF2e15ff),
+            Color(0xFF9900e6),
           ],
         ),
         borderRadius: BorderRadius.circular(20),
@@ -152,8 +152,8 @@ class TopContainerWithBalance extends StatelessWidget {
           gradient: const LinearGradient(
             colors: [
               Color(0xFF2e15ff),
-              Color(0xFF2e15ff),
-              Color(0xFF7474ff),
+              //  Color(0xFF2e15ff),
+              Color(0xFF9900e6),
             ],
           ),
           borderRadius: BorderRadius.circular(15)),
