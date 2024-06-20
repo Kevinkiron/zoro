@@ -6,7 +6,6 @@ class Expense {
   Id id = Isar.autoIncrement;
   late double amount;
   late String note;
-  late double categoryAmount;
   late String categoryName;
   late String image;
 }

@@ -38,6 +38,18 @@ class AddAccountDetails extends AccountEvent {
   List<Object> get props => [accountAmount, accountName, image];
 }
 
+class AddNewCategory extends AccountEvent {
+  final String categoryName;
+  final String icons;
+  const AddNewCategory({
+    required this.categoryName,
+    required this.icons,
+  });
+
+  @override
+  List<Object> get props => [categoryName, icons];
+}
+
 class AddExpense extends AccountEvent {
   final String note;
   final double amount;

@@ -8,6 +8,7 @@ import 'package:gap/gap.dart';
 import '../../utils/app_font_styles.dart';
 import '../home/home.dart';
 import 'bloc/budget_form_bloc.dart';
+import 'widgets/accounts_list_bottom_sheet.dart';
 import 'widgets/alert_dialog_accounts.dart';
 
 class AddBudget extends StatelessWidget {
@@ -216,16 +217,7 @@ Expanded _accountSelection(
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
                   const Gap(20),
-                  Expanded(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: state.accountList.length,
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return _listViewOfAccount(index, state, bloc);
-                      },
-                    ),
-                  ),
+                  const AccountListBottomSheet(),
                   ElevatedButton(
                       onPressed: () {
                         addNewAccount(context);
@@ -293,57 +285,8 @@ Expanded _accountSelection(
   ));
 }
 
-Widget _listViewOfAccount(index, BudgetFormState state, AccountBloc bloc) {
-  return Column(
-    children: [
-      InkWell(
-        onTap: () {
-          log(state.accountList[index].name.toString(), name: 'sa');
-          bloc.add(AddAccountDetails(
-              accountAmount: state.accountList[index].amount,
-              accountName: state.accountList[index].name,
-              image: state.accountList[index].icons));
-        },
-        child: Container(
-          color: Colors.white,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          height: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(60),
-                    child: Image.asset(
-                      state.accountList[index].icons,
-                      width: 90,
-                      height: 90,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  const Gap(15),
-                  AppFont().S(
-                      text: state.accountList[index].name,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
-                ],
-              ),
-              AppFont().N(
-                  text: state.accountList[index].amount.toString(),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400)
-            ],
-          ),
-        ),
-      ),
-      const Gap(10)
-    ],
-  );
-}
-
 Future<String?> addNewAccount(BuildContext context) {
   return showDialog<String>(
       context: context,
-      builder: (BuildContext context) => CustomAlertDialogAddAccount());
+      builder: (BuildContext context) => const CustomAlertDialogAddAccount());
 }

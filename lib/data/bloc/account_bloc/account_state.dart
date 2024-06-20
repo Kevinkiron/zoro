@@ -12,7 +12,6 @@ final class AccountState extends Equatable {
   final double accAmt;
   final String categoryImage;
   final String categoryName;
-  final double categoryAmt;
   const AccountState({
     this.addAccount = const <AddAccountModel>[],
     this.accounts = const <Account>[],
@@ -21,7 +20,6 @@ final class AccountState extends Equatable {
     this.accAmt = 0,
     this.image = '',
     this.accName = '',
-    this.categoryAmt = 0,
     this.categoryImage = '',
     this.categoryName = '',
   });
@@ -35,7 +33,6 @@ final class AccountState extends Equatable {
     double? accAmt,
     String? categoryImage,
     String? categoryName,
-    double? categoryAmt,
   }) {
     return AccountState(
       addAccount: addAccount ?? this.addAccount,
@@ -46,7 +43,6 @@ final class AccountState extends Equatable {
       accName: accName ?? this.accName,
       image: image ?? this.image,
       categoryImage: categoryImage ?? this.categoryImage,
-      categoryAmt: categoryAmt ?? this.categoryAmt,
       categoryName: categoryName ?? this.categoryName,
     );
   }
@@ -61,7 +57,6 @@ final class AccountState extends Equatable {
         accName,
         image,
         categoryImage,
-        categoryAmt,
         categoryName,
       ];
 }

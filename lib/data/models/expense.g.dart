@@ -22,23 +22,18 @@ const ExpenseSchema = CollectionSchema(
       name: r'amount',
       type: IsarType.double,
     ),
-    r'categoryAmount': PropertySchema(
-      id: 1,
-      name: r'categoryAmount',
-      type: IsarType.double,
-    ),
     r'categoryName': PropertySchema(
-      id: 2,
+      id: 1,
       name: r'categoryName',
       type: IsarType.string,
     ),
     r'image': PropertySchema(
-      id: 3,
+      id: 2,
       name: r'image',
       type: IsarType.string,
     ),
     r'note': PropertySchema(
-      id: 4,
+      id: 3,
       name: r'note',
       type: IsarType.string,
     )
@@ -76,10 +71,9 @@ void _expenseSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeDouble(offsets[0], object.amount);
-  writer.writeDouble(offsets[1], object.categoryAmount);
-  writer.writeString(offsets[2], object.categoryName);
-  writer.writeString(offsets[3], object.image);
-  writer.writeString(offsets[4], object.note);
+  writer.writeString(offsets[1], object.categoryName);
+  writer.writeString(offsets[2], object.image);
+  writer.writeString(offsets[3], object.note);
 }
 
 Expense _expenseDeserialize(
@@ -90,11 +84,10 @@ Expense _expenseDeserialize(
 ) {
   final object = Expense();
   object.amount = reader.readDouble(offsets[0]);
-  object.categoryAmount = reader.readDouble(offsets[1]);
-  object.categoryName = reader.readString(offsets[2]);
+  object.categoryName = reader.readString(offsets[1]);
   object.id = id;
-  object.image = reader.readString(offsets[3]);
-  object.note = reader.readString(offsets[4]);
+  object.image = reader.readString(offsets[2]);
+  object.note = reader.readString(offsets[3]);
   return object;
 }
 
@@ -108,12 +101,10 @@ P _expenseDeserializeProp<P>(
     case 0:
       return (reader.readDouble(offset)) as P;
     case 1:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 2:
       return (reader.readString(offset)) as P;
     case 3:
-      return (reader.readString(offset)) as P;
-    case 4:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -262,69 +253,6 @@ extension ExpenseQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
         property: r'amount',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<Expense, Expense, QAfterFilterCondition> categoryAmountEqualTo(
-    double value, {
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'categoryAmount',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<Expense, Expense, QAfterFilterCondition>
-      categoryAmountGreaterThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'categoryAmount',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<Expense, Expense, QAfterFilterCondition> categoryAmountLessThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'categoryAmount',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<Expense, Expense, QAfterFilterCondition> categoryAmountBetween(
-    double lower,
-    double upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'categoryAmount',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -797,18 +725,6 @@ extension ExpenseQuerySortBy on QueryBuilder<Expense, Expense, QSortBy> {
     });
   }
 
-  QueryBuilder<Expense, Expense, QAfterSortBy> sortByCategoryAmount() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'categoryAmount', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Expense, Expense, QAfterSortBy> sortByCategoryAmountDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'categoryAmount', Sort.desc);
-    });
-  }
-
   QueryBuilder<Expense, Expense, QAfterSortBy> sortByCategoryName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'categoryName', Sort.asc);
@@ -857,18 +773,6 @@ extension ExpenseQuerySortThenBy
   QueryBuilder<Expense, Expense, QAfterSortBy> thenByAmountDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'amount', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Expense, Expense, QAfterSortBy> thenByCategoryAmount() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'categoryAmount', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Expense, Expense, QAfterSortBy> thenByCategoryAmountDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'categoryAmount', Sort.desc);
     });
   }
 
@@ -929,12 +833,6 @@ extension ExpenseQueryWhereDistinct
     });
   }
 
-  QueryBuilder<Expense, Expense, QDistinct> distinctByCategoryAmount() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'categoryAmount');
-    });
-  }
-
   QueryBuilder<Expense, Expense, QDistinct> distinctByCategoryName(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -968,12 +866,6 @@ extension ExpenseQueryProperty
   QueryBuilder<Expense, double, QQueryOperations> amountProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'amount');
-    });
-  }
-
-  QueryBuilder<Expense, double, QQueryOperations> categoryAmountProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'categoryAmount');
     });
   }
 

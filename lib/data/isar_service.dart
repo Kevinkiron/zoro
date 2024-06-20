@@ -33,11 +33,10 @@ class IsarService {
     await readAmount();
   }
 
-  Future<void> addExpense(String note, double amount, double categoryAmount,
-      String categoryName, String image) async {
+  Future<void> addExpense(
+      String note, double amount, String categoryName, String image) async {
     final newExpense = Expense()
       ..amount = amount
-      ..categoryAmount = categoryAmount
       ..categoryName = categoryName
       ..image = image
       ..note = note;

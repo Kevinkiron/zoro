@@ -28,3 +28,23 @@ class SelectImage extends BudgetFormEvent {
   @override
   List<Object> get props => [selectedImage];
 }
+
+class AddCategory extends BudgetFormEvent {
+  final String name;
+  final String icons;
+  AddCategory(
+    this.name,
+    this.icons,
+  );
+  @override
+  List<Object> get props => [name, icons];
+}
+
+class SelectExpenseIcon extends BudgetFormEvent {
+  final String selectedExpenseIcon;
+
+  SelectExpenseIcon({required this.selectedExpenseIcon});
+
+  @override
+  List<Object> get props => [selectedExpenseIcon];
+}

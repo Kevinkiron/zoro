@@ -24,6 +24,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     on<AddAccountDetails>(_onAddAccountDetails);
     on<AddExpense>(_onAddExpense);
     on<ReadExpense>(_onLoadExpense);
+    on<AddNewCategory>(_onAddCategoryDetails);
     on<DeleteExpense>(_onDeleteExpense);
   }
   void _onAddAccount(AddAmount event, Emitter<AccountState> emit) async {
@@ -46,6 +47,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     }
   }
 
+// to get the new account details from the user and saving it to pass to add account
   void _onAddAccountDetails(
       AddAccountDetails event, Emitter<AccountState> emit) async {
     try {
@@ -60,9 +62,18 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
 
   void _onAddExpense(AddExpense event, Emitter<AccountState> emit) async {
     try {
-      await isarService.addExpense(event.note, event.amount, state.accAmt,
-          state.accName, state.categoryImage);
+      await isarService.addExpense(
+          event.note, event.amount, state.accName, state.categoryImage);
       emit(state.copyWith(status: Status.success));
+    } catch (e) {
+      emit(state.copyWith(status: Status.failure));
+    }
+  }
+
+  void _onAddCategoryDetails(
+      AddNewCategory event, Emitter<AccountState> emit) async {
+    try {
+      emit(state.copyWith(accName: event.categoryName, image: event.icons));
     } catch (e) {
       emit(state.copyWith(status: Status.failure));
     }
