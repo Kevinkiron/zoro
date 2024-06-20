@@ -136,6 +136,7 @@ class AddExpenseValue extends StatelessWidget {
                     bloc.add(AddExpense(
                       bloc.expenseNote.text,
                       double.tryParse(bloc.expenseAmount.text) ?? 0,
+                      accountState.addCategory,
                     ));
 
                     Navigator.pushReplacement(context,

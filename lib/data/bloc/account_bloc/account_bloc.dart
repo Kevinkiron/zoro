@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:expense_tracker/data/models/add_category_model.dart';
 import 'package:expense_tracker/data/models/expense.dart';
 import 'package:flutter/material.dart';
 

@@ -182,15 +182,23 @@ class HomeView extends StatelessWidget {
       color: Colors.white,
       child: ListTile(
         trailing: Text(state.expense[index].amount.toString()),
-        title: const Text('Shopping'),
+        title: Text(state.expense[index].categoryName),
         subtitle: Text(state.expense[index].note),
         leading: Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-                color: const Color(0xFF91E894),
-                borderRadius: BorderRadius.circular(10)),
-            child: const Icon(Icons.ac_unit_sharp)),
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+              color: const Color(0xFF91E894),
+              borderRadius: BorderRadius.circular(10)),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.asset(
+              state.expense[index].image,
+              width: 80,
+              height: 80,
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -7,6 +7,7 @@ final class AccountState extends Equatable {
   final List<Account> accounts;
   final List<Expense> expense;
   final List<AddAccountModel> addAccount;
+  final List<AddCategoryModel> addCategory;
   final String image;
   final String accName;
   final double accAmt;
@@ -14,6 +15,7 @@ final class AccountState extends Equatable {
   final String categoryName;
   const AccountState({
     this.addAccount = const <AddAccountModel>[],
+    this.addCategory = const <AddCategoryModel>[],
     this.accounts = const <Account>[],
     this.expense = const <Expense>[],
     this.status = Status.initial,
@@ -26,6 +28,7 @@ final class AccountState extends Equatable {
   AccountState copyWith({
     List<Account>? accounts,
     List<AddAccountModel>? addAccount,
+    List<AddCategoryModel>? addCategory,
     List<Expense>? expense,
     Status? status,
     String? image,
@@ -36,6 +39,7 @@ final class AccountState extends Equatable {
   }) {
     return AccountState(
       addAccount: addAccount ?? this.addAccount,
+      addCategory: addCategory ?? this.addCategory,
       accounts: accounts ?? this.accounts,
       expense: expense ?? this.expense,
       status: status ?? this.status,
@@ -49,6 +53,7 @@ final class AccountState extends Equatable {
 
   @override
   List<Object> get props => [
+        addCategory,
         accounts,
         expense,
         status,

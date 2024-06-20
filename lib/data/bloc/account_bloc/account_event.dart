@@ -53,9 +53,11 @@ class AddNewCategory extends AccountEvent {
 class AddExpense extends AccountEvent {
   final String note;
   final double amount;
+  final List<AddCategoryModel> addCat;
   const AddExpense(
     this.note,
     this.amount,
+    this.addCat,
   );
 
   @override

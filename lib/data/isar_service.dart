@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:expense_tracker/data/models/AddAccount_mode.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -48,8 +47,6 @@ class IsarService {
   Future<List<Account>> readAmount() async {
     final accounts = await isar.accounts.where().findAll();
     log('Accounts in Isar: ${accounts.map((a) => 'Note: ${a.note}, Amount: ${a.amount},AccMoubt: ${a.accountAmount},AccImage: ${a.image}').join(', ')}');
-    // currentAccount.clear();
-    // currentAccount.add(fetchAmount);
     return accounts;
   }
 
