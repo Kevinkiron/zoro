@@ -28,10 +28,12 @@ class AddAccountDetails extends AccountEvent {
   final double accountAmount;
   final String accountName;
   final String image;
+  final String selectedAccountName;
   const AddAccountDetails({
     required this.accountAmount,
     required this.accountName,
     required this.image,
+    required this.selectedAccountName,
   });
 
   @override

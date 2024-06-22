@@ -69,7 +69,7 @@ class AddExpenseValue extends StatelessWidget {
               ),
               const Gap(30),
               AppFont().S(
-                  text: 'ADD INCOME',
+                  text: 'ADD EXPENSE',
                   fontSize: 14,
                   fontWeight: FontWeight.bold),
               const Gap(10),
@@ -102,22 +102,22 @@ class AddExpenseValue extends StatelessWidget {
                     child: Container(
                       height: 40,
                       decoration: BoxDecoration(
-                        boxShadow: const [
+                        boxShadow: [
                           BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(1, 1),
+                            color: Colors.grey.withOpacity(0.5),
+                            offset: const Offset(1, 1),
                             spreadRadius: 0,
                             blurRadius: 2,
                           ),
                           BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(-1, -1),
+                            color: Colors.grey.withOpacity(0.5),
+                            offset: const Offset(-1, -1),
                             spreadRadius: 0,
                             blurRadius: 2,
                           ),
                         ],
                         borderRadius: BorderRadius.circular(8),
-                        color: const Color(0xFFff3623),
+                        color: const Color(0xFFe4a5ff),
                       ),
                       child: Center(
                           child: AppFont().S(
@@ -145,22 +145,22 @@ class AddExpenseValue extends StatelessWidget {
                   child: Container(
                     height: 40,
                     decoration: BoxDecoration(
-                      boxShadow: const [
+                      boxShadow: [
                         BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(1, 1),
+                          color: Colors.grey.withOpacity(0.5),
+                          offset: const Offset(1, 1),
                           spreadRadius: 0,
                           blurRadius: 2,
                         ),
                         BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(-1, -1),
+                          color: Colors.grey.withOpacity(0.5),
+                          offset: const Offset(-1, -1),
                           spreadRadius: 0,
                           blurRadius: 2,
                         ),
                       ],
                       borderRadius: BorderRadius.circular(8),
-                      color: const Color(0xFF336e64),
+                      color: const Color(0xFF7373ff),
                     ),
                     child: Center(
                       child: AppFont().S(
@@ -231,8 +231,8 @@ class AddExpenseValue extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           gradient: const LinearGradient(
             colors: [
-              Color(0xFF336e64),
-              Color(0xFF5da497),
+              Color(0xFF2f14ff),
+              Color(0xFF2e15ff),
               // Color(0xFF2c5952),
             ],
             begin: Alignment.topCenter,
@@ -384,8 +384,8 @@ class AddExpenseValue extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           gradient: const LinearGradient(
             colors: [
-              Color(0xFF336e64),
-              Color(0xFF5da497),
+              Color(0xFFb40fff),
+              Color(0xFF9900e6),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,

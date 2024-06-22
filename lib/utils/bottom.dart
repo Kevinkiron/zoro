@@ -14,33 +14,48 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        return FlashyTabBar(
-          selectedIndex: state.tabIndex,
-          iconSize: 30,
-          showElevation: true,
-          onItemSelected: (index) {
-            context.read<HomeBloc>().add(NavigateIndex(index));
-          },
-          items: [
-            FlashyTabBarItem(
-              activeColor: Colors.green,
-              icon: const Icon(
-                Icons.home_rounded,
+        return DecoratedBox(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(colors: [
+            Color(0xFFcdd1ff),
+            Color(0xFFf0cdff),
+          ])),
+          child: FlashyTabBar(
+            backgroundColor: Colors.transparent,
+            selectedIndex: state.tabIndex,
+            iconSize: 25,
+            showElevation: false,
+            onItemSelected: (index) {
+              context.read<HomeBloc>().add(NavigateIndex(index));
+            },
+            items: [
+              FlashyTabBarItem(
+                activeColor: Color(0xFF4c0076),
+                inactiveColor: Colors.white,
+                icon: const Icon(
+                  Icons.home_rounded,
+                ),
+                title: AppFont().S(text: 'Home'),
               ),
-              title: AppFont().S(text: 'Home'),
-            ),
-            FlashyTabBarItem(
-              icon: const Icon(Icons.account_balance_wallet_rounded),
-              title: AppFont().S(text: 'Transaction'),
-            ),
-            FlashyTabBarItem(
-              icon: const Icon(Icons.bar_chart_rounded),
-              title: AppFont().S(text: 'Statistic'),
-            ),
-            FlashyTabBarItem(
-                icon: const Icon(Icons.local_grocery_store_sharp),
-                title: AppFont().S(text: 'Budget')),
-          ],
+              FlashyTabBarItem(
+                activeColor: Color(0xFF4c0076),
+                inactiveColor: Colors.white,
+                icon: const Icon(Icons.account_balance_wallet_rounded),
+                title: AppFont().S(text: 'Transaction'),
+              ),
+              FlashyTabBarItem(
+                activeColor: Color(0xFF4c0076),
+                inactiveColor: Colors.white,
+                icon: const Icon(Icons.bar_chart_rounded),
+                title: AppFont().S(text: 'Statistic'),
+              ),
+              FlashyTabBarItem(
+                  activeColor: Color(0xFF4c0076),
+                  inactiveColor: Colors.white,
+                  icon: const Icon(Icons.local_grocery_store_sharp),
+                  title: AppFont().S(text: 'Budget')),
+            ],
+          ),
         );
       },
     );

@@ -35,10 +35,14 @@ class AccountListBottomSheet extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                context.read<AccountBloc>().add(AddAccountDetails(
-                    accountAmount: state.accountList[index].amount,
-                    accountName: state.accountList[index].name,
-                    image: state.accountList[index].icons));
+                context.read<AccountBloc>().add(
+                      AddAccountDetails(
+                        accountAmount: state.accountList[index].amount,
+                        accountName: state.accountList[index].name,
+                        image: state.accountList[index].icons,
+                        selectedAccountName: state.accountList[index].name,
+                      ),
+                    );
                 log(state.accountList[index].name.toString(), name: 'sa');
               },
               child: Container(

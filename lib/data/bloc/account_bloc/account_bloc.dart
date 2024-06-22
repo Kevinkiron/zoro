@@ -55,7 +55,8 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       emit(state.copyWith(
           accAmt: event.accountAmount,
           accName: event.accountName,
-          image: event.image));
+          image: event.image,
+          selectedAccountName: event.selectedAccountName));
     } catch (e) {
       emit(state.copyWith(status: Status.failure));
     }
@@ -65,6 +66,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     try {
       await isarService.addExpense(
           event.note, event.amount, state.accName, state.categoryImage);
+      add(const ReadExpense());
       emit(state.copyWith(status: Status.success));
     } catch (e) {
       emit(state.copyWith(status: Status.failure));
@@ -97,6 +99,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   void _onDeleteExpense(DeleteExpense event, Emitter<AccountState> emit) async {
     try {
       await isarService.deleteExpense(event.id);
+      add(const ReadExpense());
     } catch (e) {
       emit(state.copyWith(status: Status.failure));
     }

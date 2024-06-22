@@ -16,23 +16,32 @@ class AddBudget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: AppFont().S(
-          text: 'ADD INCOME',
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      body: Column(
-        children: [
-          BlocBuilder<BudgetFormBloc, BudgetFormState>(
-            builder: (context, state) {
-              return _incomeTab(context, state);
-            },
+    return DecoratedBox(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+        Color(0xFFe4e6ff),
+        Color(0xFFfcf3ff),
+      ])),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          centerTitle: true,
+          title: AppFont().S(
+            text: 'ADD INCOME',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
           ),
-        ],
+        ),
+        body: Column(
+          children: [
+            BlocBuilder<BudgetFormBloc, BudgetFormState>(
+              builder: (context, state) {
+                return _incomeTab(context, state);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -52,8 +61,8 @@ Widget _incomeTab(BuildContext context, BudgetFormState state) {
                 const Gap(20),
                 Row(
                   children: [
-                    _accountSelection(
-                        context, state, context.read<AccountBloc>()),
+                    _accountSelection(context, state,
+                        context.read<AccountBloc>(), accountState),
                   ],
                 ),
                 const Gap(30),
@@ -115,22 +124,22 @@ Widget _incomeTab(BuildContext context, BudgetFormState state) {
                       child: Container(
                         height: 40,
                         decoration: BoxDecoration(
-                          boxShadow: const [
+                          boxShadow: [
                             BoxShadow(
-                              color: Colors.grey,
+                              color: Colors.grey.withOpacity(0.5),
                               offset: Offset(1, 1),
                               spreadRadius: 0,
                               blurRadius: 2,
                             ),
                             BoxShadow(
-                              color: Colors.grey,
+                              color: Colors.grey.withOpacity(0.5),
                               offset: Offset(-1, -1),
                               spreadRadius: 0,
                               blurRadius: 2,
                             ),
                           ],
                           borderRadius: BorderRadius.circular(8),
-                          color: const Color(0xFFff3623),
+                          color: const Color(0xFFe4a5ff),
                         ),
                         child: Center(
                             child: AppFont().S(
@@ -161,22 +170,22 @@ Widget _incomeTab(BuildContext context, BudgetFormState state) {
                     child: Container(
                       height: 40,
                       decoration: BoxDecoration(
-                        boxShadow: const [
+                        boxShadow: [
                           BoxShadow(
-                            color: Colors.grey,
+                            color: Colors.grey.withOpacity(0.5),
                             offset: Offset(1, 1),
                             spreadRadius: 0,
                             blurRadius: 2,
                           ),
                           BoxShadow(
-                            color: Colors.grey,
+                            color: Colors.grey.withOpacity(0.5),
                             offset: Offset(-1, -1),
                             spreadRadius: 0,
                             blurRadius: 2,
                           ),
                         ],
                         borderRadius: BorderRadius.circular(8),
-                        color: const Color(0xFF336e64),
+                        color: const Color(0xFF7373ff),
                       ),
                       child: Center(
                           child: AppFont().S(
@@ -197,8 +206,8 @@ Widget _incomeTab(BuildContext context, BudgetFormState state) {
   );
 }
 
-Expanded _accountSelection(
-    BuildContext context, BudgetFormState state, AccountBloc bloc) {
+Expanded _accountSelection(BuildContext context, BudgetFormState state,
+    AccountBloc bloc, AccountState accountState) {
   return Expanded(
       child: GestureDetector(
     onTap: () {
@@ -249,8 +258,8 @@ Expanded _accountSelection(
         borderRadius: BorderRadius.circular(10),
         gradient: const LinearGradient(
           colors: [
-            Color(0xFF336e64),
-            Color(0xFF5da497),
+            Color(0xFF2f14ff),
+            Color(0xFF2e15ff),
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -268,7 +277,9 @@ Expanded _accountSelection(
               ),
               const Gap(8),
               AppFont().S(
-                text: 'Add Account'.toUpperCase(),
+                text: accountState.selectedAccountName.isEmpty
+                    ? 'Add Account'.toUpperCase()
+                    : accountState.selectedAccountName,
                 color: Colors.white,
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
