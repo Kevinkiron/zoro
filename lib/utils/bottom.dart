@@ -23,37 +23,47 @@ class BottomNavBar extends StatelessWidget {
           child: FlashyTabBar(
             backgroundColor: Colors.transparent,
             selectedIndex: state.tabIndex,
-            iconSize: 25,
-            showElevation: false,
+            iconSize: 30,
+            animationDuration: const Duration(milliseconds: 500),
+            showElevation: true,
             onItemSelected: (index) {
               context.read<HomeBloc>().add(NavigateIndex(index));
             },
             items: [
               FlashyTabBarItem(
-                activeColor: Color(0xFF4c0076),
+                activeColor: Color(0xFF8E44B6),
                 inactiveColor: Colors.white,
-                icon: const Icon(
-                  Icons.home_rounded,
-                ),
-                title: AppFont().S(text: 'Home'),
+                icon: state.tabIndex == 0
+                    ? SizedBox()
+                    : const Icon(
+                        Icons.home_rounded,
+                      ),
+                title: AppFont().S(text: 'Home', color: Color(0xFF8E44B6)),
               ),
               FlashyTabBarItem(
-                activeColor: Color(0xFF4c0076),
+                activeColor: const Color(0xFF8E44B6),
                 inactiveColor: Colors.white,
-                icon: const Icon(Icons.account_balance_wallet_rounded),
-                title: AppFont().S(text: 'Transaction'),
+                icon: state.tabIndex == 1
+                    ? const SizedBox()
+                    : const Icon(Icons.account_balance_wallet_rounded),
+                title:
+                    AppFont().S(text: 'Transaction', color: Color(0xFF8E44B6)),
               ),
               FlashyTabBarItem(
-                activeColor: Color(0xFF4c0076),
+                activeColor: const Color(0xFF8E44B6),
                 inactiveColor: Colors.white,
-                icon: const Icon(Icons.bar_chart_rounded),
-                title: AppFont().S(text: 'Statistic'),
+                icon: state.tabIndex == 2
+                    ? const SizedBox()
+                    : const Icon(Icons.bar_chart_rounded),
+                title: AppFont().S(text: 'Statistic', color: Color(0xFF8E44B6)),
               ),
               FlashyTabBarItem(
-                  activeColor: Color(0xFF4c0076),
+                  activeColor: const Color(0xFF8E44B6),
                   inactiveColor: Colors.white,
-                  icon: const Icon(Icons.local_grocery_store_sharp),
-                  title: AppFont().S(text: 'Budget')),
+                  icon: state.tabIndex == 3
+                      ? const SizedBox()
+                      : const Icon(Icons.local_grocery_store_sharp),
+                  title: AppFont().S(text: 'Budget', color: Color(0xFF8E44B6))),
             ],
           ),
         );

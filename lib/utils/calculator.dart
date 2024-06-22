@@ -6,11 +6,11 @@ import 'package:gap/gap.dart';
 import '../data/bloc/math_bloc/math_bloc.dart';
 
 class CalculatorView extends StatelessWidget {
-  CalculatorView({super.key, this.decoration, this.width, this.height});
+  const CalculatorView({super.key, this.decoration, this.width, this.height});
 
-  BoxDecoration? decoration;
-  double? width;
-  double? height;
+  final BoxDecoration? decoration;
+  final double? width;
+  final double? height;
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;

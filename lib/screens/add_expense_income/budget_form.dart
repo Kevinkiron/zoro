@@ -17,7 +17,7 @@ class AddBudget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(colors: [
         Color(0xFFe4e6ff),
         Color(0xFFfcf3ff),
@@ -55,61 +55,63 @@ Widget _incomeTab(BuildContext context, BudgetFormState state) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Gap(20),
-                Row(
-                  children: [
-                    _accountSelection(context, state,
-                        context.read<AccountBloc>(), accountState),
-                  ],
-                ),
-                const Gap(30),
-                AppFont().S(
-                    text: 'ADD INCOME',
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold),
-                const Gap(10),
-                TextField(
-                  controller: context.read<AccountBloc>().amount,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey.shade300,
-                    hintText: 'Income',
-                    hintStyle: TextStyle(
-                      fontStyle: AppFont().S(text: '').style?.fontStyle,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
-                    ),
-                    border:
-                        const OutlineInputBorder(borderSide: BorderSide.none),
+            Form(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Gap(20),
+                  Row(
+                    children: [
+                      _accountSelection(context, state,
+                          context.read<AccountBloc>(), accountState),
+                    ],
                   ),
-                ),
-                const Gap(20),
-                AppFont().S(
-                    text: 'ADD NOTE',
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold),
-                const Gap(10),
-                TextField(
-                  controller: context.read<AccountBloc>().note,
-                  maxLines: 4,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey.shade300,
-                    hintText: 'Notes',
-                    hintStyle: TextStyle(
-                      fontStyle: AppFont().S(text: '').style?.fontStyle,
-                      fontWeight: FontWeight.w400,
+                  const Gap(30),
+                  AppFont().S(
+                      text: 'ADD INCOME',
                       fontSize: 14,
+                      fontWeight: FontWeight.bold),
+                  const Gap(10),
+                  TextField(
+                    controller: context.read<AccountBloc>().amount,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey.shade300,
+                      hintText: 'Income',
+                      hintStyle: TextStyle(
+                        fontStyle: AppFont().S(text: '').style?.fontStyle,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                      ),
+                      border:
+                          const OutlineInputBorder(borderSide: BorderSide.none),
                     ),
-                    border:
-                        const OutlineInputBorder(borderSide: BorderSide.none),
                   ),
-                ),
-                const Gap(40),
-              ],
+                  const Gap(20),
+                  AppFont().S(
+                      text: 'ADD NOTE',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold),
+                  const Gap(10),
+                  TextField(
+                    controller: context.read<AccountBloc>().note,
+                    maxLines: 4,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey.shade300,
+                      hintText: 'Notes',
+                      hintStyle: TextStyle(
+                        fontStyle: AppFont().S(text: '').style?.fontStyle,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                      ),
+                      border:
+                          const OutlineInputBorder(borderSide: BorderSide.none),
+                    ),
+                  ),
+                  const Gap(40),
+                ],
+              ),
             ),
             Container(
               alignment: Alignment.centerRight,
@@ -127,13 +129,13 @@ Widget _incomeTab(BuildContext context, BudgetFormState state) {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
-                              offset: Offset(1, 1),
+                              offset: const Offset(1, 1),
                               spreadRadius: 0,
                               blurRadius: 2,
                             ),
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
-                              offset: Offset(-1, -1),
+                              offset: const Offset(-1, -1),
                               spreadRadius: 0,
                               blurRadius: 2,
                             ),
@@ -173,13 +175,13 @@ Widget _incomeTab(BuildContext context, BudgetFormState state) {
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(0.5),
-                            offset: Offset(1, 1),
+                            offset: const Offset(1, 1),
                             spreadRadius: 0,
                             blurRadius: 2,
                           ),
                           BoxShadow(
                             color: Colors.grey.withOpacity(0.5),
-                            offset: Offset(-1, -1),
+                            offset: const Offset(-1, -1),
                             spreadRadius: 0,
                             blurRadius: 2,
                           ),

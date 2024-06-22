@@ -11,99 +11,102 @@ class Transaction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(colors: [
-        Color(0xFFe4e6ff),
-        Color(0xFFfcf3ff),
-      ])),
-      child: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: BlocBuilder<AccountBloc, AccountState>(
-              builder: (context, state) {
-                return Column(
-                  children: [
-                    const Gap(30),
-                    EasyDateTimeLine(
-                      initialDate: DateTime.now(),
-                    ),
-                    const Gap(10),
-                    Card(
-                      elevation: 2,
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(30))),
-                      child: TabBar(
-                        labelColor: Colors.white,
-                        labelStyle: AppFont()
-                            .S(
-                                text: '',
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold)
-                            .style,
-                        unselectedLabelColor: Colors.grey.withOpacity(0.5),
-                        splashFactory: NoSplash.splashFactory,
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        enableFeedback: false,
-                        dividerColor: Colors.transparent,
-                        indicator: const BoxDecoration(
-                            gradient: LinearGradient(colors: [
-                              Color(0xFFb40fff),
-                              Color(0xFF9900e6),
-                            ]),
+    return SafeArea(
+      child: DecoratedBox(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+          Color(0xFFe4e6ff),
+          Color(0xFFfcf3ff),
+        ])),
+        child: DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: BlocBuilder<AccountBloc, AccountState>(
+                builder: (context, state) {
+                  return Column(
+                    children: [
+                      const Gap(20),
+                      EasyDateTimeLine(
+                        initialDate: DateTime.now(),
+                      ),
+                      const Gap(10),
+                      Card(
+                        elevation: 2,
+                        shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(30))),
-                        tabs: const [
-                          Tab(
-                            text: 'Expense',
-                          ),
-                          Tab(
-                            text: 'Income',
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: TabBarView(children: [
-                        ListView.builder(
-                          itemCount: state.expense.length,
-                          padding: const EdgeInsets.only(top: 10),
-                          itemBuilder: (BuildContext context, int index) {
-                            return Column(
-                              children: [
-                                Card(
-                                  elevation: 0,
+                        child: TabBar(
+                          labelColor: Colors.white,
+                          labelStyle: AppFont()
+                              .S(
+                                  text: '',
                                   color: Colors.white,
-                                  child: ListTile(
-                                    trailing: Text(
-                                        state.expense[index].amount.toString()),
-                                    title:
-                                        Text(state.expense[index].categoryName),
-                                    subtitle: Text(state.expense[index].note),
-                                    leading: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: Image.asset(
-                                        state.expense[index].image,
-                                        width: 80,
-                                        height: 80,
+                                  fontWeight: FontWeight.bold)
+                              .style,
+                          unselectedLabelColor: Colors.grey.withOpacity(0.5),
+                          splashFactory: NoSplash.splashFactory,
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          enableFeedback: false,
+                          dividerColor: Colors.transparent,
+                          indicator: const BoxDecoration(
+                              gradient: LinearGradient(colors: [
+                                Color(0xFFb40fff),
+                                Color(0xFF9900e6),
+                              ]),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30))),
+                          tabs: const [
+                            Tab(
+                              text: 'Expense',
+                            ),
+                            Tab(
+                              text: 'Income',
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: TabBarView(children: [
+                          ListView.builder(
+                            itemCount: state.expense.length,
+                            padding: const EdgeInsets.only(top: 10),
+                            itemBuilder: (BuildContext context, int index) {
+                              return Column(
+                                children: [
+                                  Card(
+                                    elevation: 0,
+                                    color: Colors.white,
+                                    child: ListTile(
+                                      trailing: Text(state.expense[index].amount
+                                          .toString()),
+                                      title: Text(
+                                          state.expense[index].categoryName),
+                                      subtitle: Text(state.expense[index].note),
+                                      leading: ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: Image.asset(
+                                          state.expense[index].image,
+                                          width: 80,
+                                          height: 80,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                const Gap(7)
-                              ],
-                            );
-                          },
-                        ),
-                        _incomeTab(state),
-                      ]),
-                    )
-                  ],
-                );
-              },
+                                  const Gap(7)
+                                ],
+                              );
+                            },
+                          ),
+                          _incomeTab(state),
+                        ]),
+                      )
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ),

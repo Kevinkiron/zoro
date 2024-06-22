@@ -44,91 +44,93 @@ class HomeView extends StatelessWidget {
     String dateMonth = DateFormat("d MMMM, ").format(DateTime.now());
     return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
-        return DecoratedBox(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFFe4e6ff),
-                  Color(0xFFfcf3ff),
-                ],
-                begin: Alignment.bottomCenter,
-              ),
-            ),
-            child: Scaffold(
-              backgroundColor: Colors.transparent,
-              //  backgroundColor: const Color(0xFFf0f1ff),
-              body: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                      text: dateMonth,
-                                      style: AppFont()
-                                          .N(
-                                            text: '',
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                          )
-                                          .style),
-                                  TextSpan(
-                                      text: week,
-                                      style: AppFont().S(text: '').style),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Icon(Icons.notification_add_outlined)
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const TopContainerWithBalance(),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: _incomeCard(),
-                        ),
-                        const Gap(10),
-                        Expanded(
-                          child: _expenseCard(),
-                        ),
-                      ],
-                    ),
-                    const Gap(20),
-                    AppFont().S(
-                      fontSize: 18,
-                      text: 'Last Transactions',
-                      color: const Color.fromARGB(255, 101, 101, 101),
-                      fontWeight: FontWeight.bold,
-                    ),
-                    const Gap(10),
-                    todaysTransact(state),
+        return SafeArea(
+          child: DecoratedBox(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFFe4e6ff),
+                    Color(0xFFfcf3ff),
                   ],
+                  begin: Alignment.bottomCenter,
                 ),
               ),
-            ));
+              child: Scaffold(
+                backgroundColor: Colors.transparent,
+                //  backgroundColor: const Color(0xFFf0f1ff),
+                body: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                        text: dateMonth,
+                                        style: AppFont()
+                                            .N(
+                                              text: '',
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            )
+                                            .style),
+                                    TextSpan(
+                                        text: week,
+                                        style: AppFont().S(text: '').style),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Icon(Icons.notification_add_outlined)
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const TopContainerWithBalance(),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: _incomeCard(),
+                          ),
+                          const Gap(10),
+                          Expanded(
+                            child: _expenseCard(),
+                          ),
+                        ],
+                      ),
+                      const Gap(20),
+                      AppFont().S(
+                        fontSize: 18,
+                        text: 'Last Transactions',
+                        color: const Color.fromARGB(255, 101, 101, 101),
+                        fontWeight: FontWeight.bold,
+                      ),
+                      const Gap(10),
+                      todaysTransact(state),
+                    ],
+                  ),
+                ),
+              )),
+        );
       },
     );
   }
